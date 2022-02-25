@@ -24,7 +24,7 @@ const CanvasArea = () => {
 
   return (
     <div className="bg-gray-50 text-gray-100">
-      <Stage onClick={resetSelectEl} width={400} height={400}>
+      <Stage onClick={() => selectCircle(null)} width={400} height={400}>
         <Layer>
           {circles.map((c) => (
             <CircleShape
