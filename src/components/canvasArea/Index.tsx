@@ -3,6 +3,7 @@ import React from 'react'
 import dynamic from 'next/dynamic'
 import { useCircleStore } from '../../store/canvasShapes'
 import { circle } from '../../types/canvas.type'
+import resetSelectEl from '../../utils/resetSelectEl'
 const Layer = dynamic<any>(
   () => import('react-konva').then((cmp) => cmp.Layer),
   { ssr: false }
@@ -21,19 +22,9 @@ const CanvasArea = () => {
   const onDragCircle = useCircleStore((state) => state.onDrag)
   const transformCircle = useCircleStore((state) => state.onTransform)
 
-  const selectCircleHandler = (c: circle) => {
-    selectCircle(c)
-  }
-
-  console.log('selected', selectedCircle)
-
-  const stageClickHandler = () => {
-    selectCircle(null)
-  }
-
   return (
     <div className="bg-gray-50 text-gray-100">
-      <Stage onClick={stageClickHandler} width={400} height={400}>
+      <Stage onClick={resetSelectEl} width={400} height={400}>
         <Layer>
           {circles.map((c) => (
             <CircleShape
@@ -45,7 +36,7 @@ const CanvasArea = () => {
               }}
               isSelected={!!selectedCircle && selectedCircle.id === c.id}
               onSelect={() => {
-                selectCircleHandler(c)
+                selectCircle(c)
               }}
               onTransform={(newAttrs) => {
                 transformCircle(newAttrs.x, newAttrs.y, newAttrs.radius)

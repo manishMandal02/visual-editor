@@ -32,13 +32,10 @@ const CircleShape: React.FC<Props> = ({
   const trRef = useRef<any>(null)
   useEffect(() => {
     if (isSelected) {
-      console.log('ref', trRef.current.nodes)
       trRef.current.nodes([shapeRef.current])
       trRef.current.getLayer().batchDraw()
     }
   }, [isSelected])
-
-  console.log(shapeRef)
 
   // useEffect(() => {
   //   const handleClickOutside = (e: MouseEvent) => {
@@ -79,7 +76,6 @@ const CircleShape: React.FC<Props> = ({
           // const scaleY = node.scaleY()
           // node.scaleX(1)
           // node.scaleY(1)
-          console.log('shape node', node.radius())
           onTransform({
             x: node.x(),
             y: node.y(),
