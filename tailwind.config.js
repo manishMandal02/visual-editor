@@ -1,11 +1,44 @@
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
+    './src/components/**/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: {
+          DEFAULT: '#0EA5E9',
+          dark: '#0F172A',
+          dark2: '#1E293B',
+          mid: '#CBD5E1',
+        },
+      },
+      borderWidth: {
+        3: '3px',
+      },
+      transitionDuration: {
+        400: '400ms',
+      },
+      width: {
+        82: '21.4rem',
+        98: '23.5rem',
+        100: '64rem',
+      },
+      height: {
+        100: '80rem',
+      },
+      spacing: {
+        18: '12%',
+      },
+      screens: {
+        ms: { max: '850px' },
+      },
+    },
   },
   plugins: [],
 }
+
+/*
+
+*/
