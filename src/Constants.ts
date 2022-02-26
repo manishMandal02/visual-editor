@@ -1,3 +1,8 @@
-const INSTAGRAMPOSTSIZE: number = 1080
+const INSTAGRAM_POST_SIZE: number = 1080
 
-export { INSTAGRAMPOSTSIZE }
+// shapes
+const CIRCLE: string = 'circle'
+const RECTANGLE: string = 'rectangle'
+const STAR: string = 'star'
+
+export { INSTAGRAM_POST_SIZE, CIRCLE, RECTANGLE, STAR }

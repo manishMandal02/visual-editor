@@ -1,27 +1,41 @@
 import { nanoid } from 'nanoid'
 import React from 'react'
+import { CIRCLE, RECTANGLE } from '../../Constants'
+import { useProjectBoardStore } from '../../store/projectBoard'
 import { useCircleStore, useRectangleStore } from '../../store/shapes'
 
 const Shapes = () => {
+  //global state - selectEl
+  const setSelectedEl = useProjectBoardStore((state) => state.setSelectedEl)
+
+  // global state - add shapes
   const addCircle = useCircleStore((state) => state.add)
   const addRectangle = useRectangleStore((state) => state.add)
 
+  const initialCircleAttr = {
+    type: CIRCLE,
+    x: 100,
+    y: 100,
+    radius: 50,
+  }
+
+  const initialRectAttr = {
+    type: RECTANGLE,
+    x: 100,
+    y: 100,
+    width: 100,
+    height: 50,
+  }
+
   const addCircleHandler = () => {
-    addCircle({
-      id: nanoid(),
-      x: 100,
-      y: 100,
-      radius: 50,
-    })
+    const id = nanoid()
+    addCircle({ id, ...initialCircleAttr })
+    setSelectedEl({ id, ...initialCircleAttr })
   }
   const addRectangleHandler = () => {
-    addRectangle({
-      id: nanoid(),
-      x: 100,
-      y: 100,
-      width: 100,
-      height: 50,
-    })
+    const id = nanoid()
+    addRectangle({ id, ...initialRectAttr })
+    setSelectedEl({ id, ...initialRectAttr })
   }
   return (
     <div className="flex h-full w-full justify-center p-4">

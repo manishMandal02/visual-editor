@@ -1,6 +1,7 @@
 import { KonvaEventObject } from 'konva/lib/Node'
 import React, { useEffect, useRef, useState } from 'react'
 import { Rect, Transformer } from 'react-konva'
+import { useProjectBoardStore } from '../../../store/projectBoard'
 import { useRectangleStore } from '../../../store/shapes'
 import { rectangle } from '../../../types/canvas.type'
 
@@ -10,20 +11,20 @@ interface Props {
 
 const RectangleShape: React.FC<Props> = ({ shapeProps }) => {
   // global state - Rectangle state store
-  const selectedRectangle = useRectangleStore((state) => state.selected)
-  const selectRectangle = useRectangleStore((state) => state.select)
+  const selectedEl = useProjectBoardStore((state) => state.selectedEl)
+  const setSelectedEl = useProjectBoardStore((state) => state.setSelectedEl)
   const onDragRectangle = useRectangleStore((state) => state.onDrag)
   const transformRectangle = useRectangleStore((state) => state.onTransform)
 
   const [isSelected, setIsSelected] = useState<boolean>(false)
 
   useEffect(() => {
-    if (selectedRectangle && selectedRectangle.id === shapeProps.id) {
+    if (selectedEl && selectedEl.id === shapeProps.id) {
       setIsSelected(true)
     } else {
       setIsSelected(false)
     }
-  }, [selectedRectangle, shapeProps])
+  }, [selectedEl, shapeProps])
 
   // shape size and transform
   const shapeRef = useRef(null)
@@ -39,7 +40,7 @@ const RectangleShape: React.FC<Props> = ({ shapeProps }) => {
       <Rect
         onClick={(evt: KonvaEventObject<MouseEvent>) => {
           evt.cancelBubble = true
-          selectRectangle(shapeProps)
+          setSelectedEl(shapeProps)
         }}
         ref={shapeRef}
         x={shapeProps.x}
@@ -47,9 +48,13 @@ const RectangleShape: React.FC<Props> = ({ shapeProps }) => {
         width={shapeProps.width}
         height={shapeProps.height}
         draggable
-        onDragStart={() => selectRectangle(shapeProps)}
+        onDragStart={() => setSelectedEl(shapeProps)}
         onDragEnd={(e: any) => {
-          onDragRectangle(e.target.x(), e.target.y())
+          onDragRectangle({
+            id: shapeProps.id,
+            x: e.target.x(),
+            y: e.target.y(),
+          })
         }}
         stroke="black"
         onTransformEnd={() => {
@@ -59,7 +64,13 @@ const RectangleShape: React.FC<Props> = ({ shapeProps }) => {
           // const scaleY = node.scaleY()
           // node.scaleX(1)
           // node.scaleY(1)
-          transformRectangle(node.x(), node.y(), node.height(), node.width())
+          transformRectangle({
+            id: shapeProps.id,
+            x: node.x(),
+            y: node.y(),
+            height: node.height(),
+            width: node.width(),
+          })
         }}
       />
       {isSelected && <Transformer ref={trRef} />}

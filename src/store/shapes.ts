@@ -1,15 +1,19 @@
 import create, { SetState, GetState, StoreApi, StateCreator } from 'zustand'
 // import { devtools } from 'zustand/middleware'
-
+import produce from 'immer'
 import { circle, rectangle } from '../types/canvas.type'
 
 interface circleStore {
   circles: circle[]
-  selected: circle | null
   add: (c: circle) => void
-  select: (c: circle | null) => void
-  onDrag: (x: number, y: number) => void
-  onTransform: (x: number, y: number, radius: number) => void
+  remove: (id: string) => void
+  onDrag: (values: { id: string; x: number; y: number }) => void
+  onTransform: (values: {
+    id: string
+    x: number
+    y: number
+    radius: number
+  }) => void
 }
 
 const circleStore:
@@ -19,38 +23,54 @@ const circleStore:
   get: GetState<circleStore>
 ) => ({
   circles: [],
-  selected: null,
   add: (circle) =>
     set((state) => ({
       ...state,
       circles: [...state.circles, circle],
     })),
-  select: (circle) => set((state) => ({ ...state, selected: circle })),
-  onDrag: (x, y) => {
-    const { selected } = get()
-    if (!!selected) {
-      set({
-        selected: { ...selected, x: x, y: y },
+  remove: (id) =>
+    set(
+      produce((draft: circleStore) => {
+        const circleIndex = draft.circles.findIndex((c) => c.id === id)
+        draft.circles.splice(circleIndex, 1)
       })
-    }
-  },
-  onTransform: (x, y, radius) => {
-    const { selected } = get()
-    if (!!selected) {
-      set({
-        selected: { ...selected, x: x, y: y, radius },
+    ),
+
+  onDrag: ({ id, x, y }) =>
+    set(
+      produce((draft: circleStore) => {
+        const circle = draft.circles.find((c) => c.id === id)
+        if (circle) {
+          circle.x = x
+          circle.y = y
+        }
       })
-    }
-  },
+    ),
+  onTransform: ({ id, x, y, radius }) =>
+    set(
+      produce((draft: circleStore) => {
+        const circle = draft.circles.find((c) => c.id === id)
+        if (circle) {
+          circle.x = x
+          circle.y = y
+          circle.radius = radius
+        }
+      })
+    ),
 })
 
 interface rectangleStore {
   rectangles: rectangle[]
-  selected: rectangle | null
   add: (c: rectangle) => void
-  select: (c: rectangle | null) => void
-  onDrag: (x: number, y: number) => void
-  onTransform: (x: number, y: number, height: number, width: number) => void
+  remove: (id: string) => void
+  onDrag: (values: { id: string; x: number; y: number }) => void
+  onTransform: (values: {
+    id: string
+    x: number
+    y: number
+    width: number
+    height: number
+  }) => void
 }
 
 const rectangleStore:
@@ -65,29 +85,40 @@ const rectangleStore:
   get: GetState<rectangleStore>
 ) => ({
   rectangles: [],
-  selected: null,
   add: (circle) =>
     set((state) => ({
       ...state,
       rectangles: [...state.rectangles, circle],
     })),
-  select: (circle) => set((state) => ({ ...state, selected: circle })),
-  onDrag: (x, y) => {
-    const { selected } = get()
-    if (!!selected) {
-      set({
-        selected: { ...selected, x: x, y: y },
+  remove: (id) =>
+    set(
+      produce((draft: rectangleStore) => {
+        const rectangleIndex = draft.rectangles.findIndex((r) => r.id === id)
+        draft.rectangles.splice(rectangleIndex, 1)
       })
-    }
-  },
-  onTransform: (x, y, height, width) => {
-    const { selected } = get()
-    if (!!selected) {
-      set({
-        selected: { ...selected, x: x, y: y, height, width },
+    ),
+  onDrag: ({ id, x, y }) =>
+    set(
+      produce((draft: rectangleStore) => {
+        const rectangle = draft.rectangles.find((r) => r.id === id)
+        if (rectangle) {
+          rectangle.x = x
+          rectangle.y = y
+        }
       })
-    }
-  },
+    ),
+  onTransform: ({ id, x, y, width, height }) =>
+    set(
+      produce((draft: rectangleStore) => {
+        const rectangle = draft.rectangles.find((r) => r.id === id)
+        if (rectangle) {
+          rectangle.x = x
+          rectangle.y = y
+          rectangle.width = width
+          rectangle.height = height
+        }
+      })
+    ),
 })
 
 export const useCircleStore = create<circleStore>(circleStore)

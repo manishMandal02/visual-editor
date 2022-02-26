@@ -12,9 +12,11 @@ const CanvasArea = dynamic(() => import('../src/components/canvasArea/Index'), {
 
 const App = () => {
   // state - selected element TODO: update type below from any
-  const [selectedEl, setSelectedEl] = useState<null | any>(null)
+  const setSelectedElNull = useProjectBoardStore(
+    (state) => state.setSelectedElNull
+  )
 
-  const canvasSize = useProjectBoardStore((state) => state.size)
+  const projectSetting = useProjectBoardStore((state) => state.setting)
 
   //export to image
   const exportToImageHandler = () => {
@@ -26,15 +28,21 @@ const App = () => {
       <div className=" flex h-16 items-center justify-center border-b border-primary text-gray-100">
         <Header />
       </div>
-      <div className="relative flex h-screen items-start justify-center">
+      <div
+        // onClick={setSelectedElNull}
+        className="relative flex h-screen items-start justify-center"
+      >
         <div className="absolute  left-0 h-4/5 w-96 ">
           <CanvasControls />
         </div>
         <div
-          className="mt-12 ml-60 flex  overflow-hidden bg-slate-300"
-          style={{ width: canvasSize.width, height: canvasSize.height }}
+          className=" mt-12 ml-60 flex  overflow-hidden bg-slate-300"
+          style={{
+            width: projectSetting.size.width,
+            height: projectSetting.size.height,
+          }}
         >
-          <CanvasArea size={canvasSize} />
+          <CanvasArea boardSetting={projectSetting} />
         </div>
       </div>
     </div>

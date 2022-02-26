@@ -1,6 +1,7 @@
 import { KonvaEventObject } from 'konva/lib/Node'
 import React, { useRef, useEffect, LegacyRef, useState } from 'react'
 import { Transformer, Circle } from 'react-konva'
+import { useProjectBoardStore } from '../../../store/projectBoard'
 import { useCircleStore } from '../../../store/shapes'
 import { circle } from '../../../types/canvas.type'
 
@@ -10,20 +11,20 @@ interface Props {
 
 const CircleShape: React.FC<Props> = ({ shapeProps }) => {
   // global state - Circle state store
-  const selectedCircle = useCircleStore((state) => state.selected)
-  const selectCircle = useCircleStore((state) => state.select)
+  const selectedEl = useProjectBoardStore((state) => state.selectedEl)
+  const setSelectedEl = useProjectBoardStore((state) => state.setSelectedEl)
   const onDragCircle = useCircleStore((state) => state.onDrag)
   const transformCircle = useCircleStore((state) => state.onTransform)
 
   const [isSelected, setIsSelected] = useState<boolean>(false)
 
   useEffect(() => {
-    if (selectedCircle && selectedCircle.id === shapeProps.id) {
+    if (selectedEl && selectedEl.id === shapeProps.id) {
       setIsSelected(true)
     } else {
       setIsSelected(false)
     }
-  }, [selectedCircle, shapeProps])
+  }, [selectedEl, shapeProps])
 
   // shape size and transform
   const shapeRef = useRef(null)
@@ -40,16 +41,16 @@ const CircleShape: React.FC<Props> = ({ shapeProps }) => {
       <Circle
         onClick={(evt: KonvaEventObject<MouseEvent>) => {
           evt.cancelBubble = true
-          selectCircle(shapeProps)
+          setSelectedEl(shapeProps)
         }}
         ref={shapeRef}
         x={shapeProps.x}
         y={shapeProps.y}
         radius={shapeProps.radius}
         draggable
-        onDragStart={() => selectCircle(shapeProps)}
+        onDragStart={() => setSelectedEl(shapeProps)}
         onDragEnd={(e: any) => {
-          onDragCircle(e.target.x(), e.target.y())
+          onDragCircle({ id: shapeProps.id, x: e.target.x(), y: e.target.y() })
         }}
         stroke="black"
         onTransformEnd={() => {
@@ -59,7 +60,12 @@ const CircleShape: React.FC<Props> = ({ shapeProps }) => {
           // const scaleY = node.scaleY()
           // node.scaleX(1)
           // node.scaleY(1)
-          transformCircle(node.x(), node.y(), node.radius())
+          transformCircle({
+            id: shapeProps.id,
+            x: node.x(),
+            y: node.y(),
+            radius: node.radius(),
+          })
         }}
       />
       {isSelected && <Transformer ref={trRef} />}
