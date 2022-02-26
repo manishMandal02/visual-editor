@@ -1,29 +1,29 @@
 import { KonvaEventObject } from 'konva/lib/Node'
-import React, { useRef, useEffect, LegacyRef, useState } from 'react'
-import { Transformer, Circle } from 'react-konva'
-import { useCircleStore } from '../../../store/canvasShapes'
-import { circle } from '../../../types/canvas.type'
+import React, { useEffect, useRef, useState } from 'react'
+import { Rect, Transformer } from 'react-konva'
+import { useRectangleStore } from '../../../store/canvasShapes'
+import { rectangle } from '../../../types/canvas.type'
 
 interface Props {
-  shapeProps: circle
+  shapeProps: rectangle
 }
 
-const CircleShape: React.FC<Props> = ({ shapeProps }) => {
-  // global state - Circle state store
-  const selectedCircle = useCircleStore((state) => state.selected)
-  const selectCircle = useCircleStore((state) => state.select)
-  const onDragCircle = useCircleStore((state) => state.onDrag)
-  const transformCircle = useCircleStore((state) => state.onTransform)
+const RectangleShape: React.FC<Props> = ({ shapeProps }) => {
+  // global state - Rectangle state store
+  const selectedRectangle = useRectangleStore((state) => state.selected)
+  const selectRectangle = useRectangleStore((state) => state.select)
+  const onDragRectangle = useRectangleStore((state) => state.onDrag)
+  const transformRectangle = useRectangleStore((state) => state.onTransform)
 
   const [isSelected, setIsSelected] = useState<boolean>(false)
 
   useEffect(() => {
-    if (selectedCircle && selectedCircle.id === shapeProps.id) {
+    if (selectedRectangle && selectedRectangle.id === shapeProps.id) {
       setIsSelected(true)
     } else {
       setIsSelected(false)
     }
-  }, [selectedCircle, shapeProps])
+  }, [selectedRectangle, shapeProps])
 
   // shape size and transform
   const shapeRef = useRef(null)
@@ -34,22 +34,22 @@ const CircleShape: React.FC<Props> = ({ shapeProps }) => {
       trRef.current.getLayer().batchDraw()
     }
   }, [isSelected])
-
   return (
     <>
-      <Circle
+      <Rect
         onClick={(evt: KonvaEventObject<MouseEvent>) => {
           evt.cancelBubble = true
-          selectCircle(shapeProps)
+          selectRectangle(shapeProps)
         }}
         ref={shapeRef}
         x={shapeProps.x}
         y={shapeProps.y}
-        radius={shapeProps.radius}
+        width={shapeProps.width}
+        height={shapeProps.height}
         draggable
-        onDragStart={() => selectCircle(shapeProps)}
+        onDragStart={() => selectRectangle(shapeProps)}
         onDragEnd={(e: any) => {
-          onDragCircle(e.target.x(), e.target.y())
+          onDragRectangle(e.target.x(), e.target.y())
         }}
         stroke="black"
         onTransformEnd={() => {
@@ -59,11 +59,12 @@ const CircleShape: React.FC<Props> = ({ shapeProps }) => {
           // const scaleY = node.scaleY()
           // node.scaleX(1)
           // node.scaleY(1)
-          transformCircle(node.x(), node.y(), node.radius())
+          transformRectangle(node.x(), node.y(), node.height(), node.width())
         }}
       />
       {isSelected && <Transformer ref={trRef} />}
     </>
   )
 }
-export default CircleShape
+
+export default RectangleShape

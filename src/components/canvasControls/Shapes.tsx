@@ -1,22 +1,35 @@
 import { nanoid } from 'nanoid'
 import React from 'react'
-import { useCircleStore } from '../../store/canvasShapes'
+import { useCircleStore, useRectangleStore } from '../../store/canvasShapes'
 
 const Shapes = () => {
   const addCircle = useCircleStore((state) => state.add)
+  const addRectangle = useRectangleStore((state) => state.add)
 
   const addCircleHandler = () => {
     addCircle({
+      id: nanoid(),
       x: 100,
       y: 100,
       radius: 50,
+    })
+  }
+  const addRectangleHandler = () => {
+    addRectangle({
       id: nanoid(),
+      x: 100,
+      y: 100,
+      width: 100,
+      height: 50,
     })
   }
   return (
     <div className="flex h-full w-full justify-center p-4">
       {/* box */}
-      <div className="h-16 w-20 cursor-pointer rounded-md bg-slate-600 p-2 shadow-sm shadow-slate-600">
+      <div
+        onClick={addRectangleHandler}
+        className="h-16 w-20 cursor-pointer rounded-md bg-slate-600 p-2 shadow-sm shadow-slate-600"
+      >
         <div className=" h-full w-full rounded-sm border-3 border-primary"></div>
       </div>
       {/* circle */}

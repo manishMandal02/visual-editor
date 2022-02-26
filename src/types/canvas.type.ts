@@ -6,14 +6,19 @@
 //   radius: number
 // }
 
+interface canvasSize {
+  height: number
+  width: number
+}
+
 interface circle {
-  id?: string
+  id: string
   x: number
   y: number
   radius: number
 }
 interface rectangle {
-  id?: string
+  id: string
   x: number
   y: number
   height: number
@@ -22,4 +27,4 @@ interface rectangle {
 
 type selectedElement = circle | rectangle
 
-export type { circle, selectedElement, rectangle }
+export type { circle, selectedElement, rectangle, canvasSize }

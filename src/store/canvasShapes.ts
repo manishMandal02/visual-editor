@@ -1,7 +1,7 @@
 import create, { SetState, GetState, StoreApi, StateCreator } from 'zustand'
-import { devtools } from 'zustand/middleware'
+// import { devtools } from 'zustand/middleware'
 
-import { circle } from '../types/canvas.type'
+import { circle, rectangle } from '../types/canvas.type'
 
 interface circleStore {
   circles: circle[]
@@ -25,10 +25,7 @@ const circleStore:
       ...state,
       circles: [...state.circles, circle],
     })),
-  select: (circle) => {
-    const { selected } = get()
-    set({ selected: circle })
-  },
+  select: (circle) => set((state) => ({ ...state, selected: circle })),
   onDrag: (x, y) => {
     const { selected } = get()
     if (!!selected) {
@@ -41,10 +38,57 @@ const circleStore:
     const { selected } = get()
     if (!!selected) {
       set({
-        selected: { ...selected, x: x, y: y, radius: radius },
+        selected: { ...selected, x: x, y: y, radius },
       })
     }
   },
 })
 
-export const useCircleStore = create<circleStore>(devtools(circleStore))
+interface rectangleStore {
+  rectangles: rectangle[]
+  selected: rectangle | null
+  add: (c: rectangle) => void
+  select: (c: rectangle | null) => void
+  onDrag: (x: number, y: number) => void
+  onTransform: (x: number, y: number, height: number, width: number) => void
+}
+
+const rectangleStore:
+  | StateCreator<
+      rectangleStore,
+      SetState<rectangleStore>,
+      GetState<rectangleStore>,
+      any
+    >
+  | StoreApi<rectangleStore> = (
+  set: SetState<rectangleStore>,
+  get: GetState<rectangleStore>
+) => ({
+  rectangles: [],
+  selected: null,
+  add: (circle) =>
+    set((state) => ({
+      ...state,
+      rectangles: [...state.rectangles, circle],
+    })),
+  select: (circle) => set((state) => ({ ...state, selected: circle })),
+  onDrag: (x, y) => {
+    const { selected } = get()
+    if (!!selected) {
+      set({
+        selected: { ...selected, x: x, y: y },
+      })
+    }
+  },
+  onTransform: (x, y, height, width) => {
+    const { selected } = get()
+    if (!!selected) {
+      set({
+        selected: { ...selected, x: x, y: y, height, width },
+      })
+    }
+  },
+})
+
+export const useCircleStore = create<circleStore>(circleStore)
+export const useRectangleStore = create<rectangleStore>(rectangleStore)
