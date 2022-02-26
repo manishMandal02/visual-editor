@@ -1,0 +1,3 @@
+const INSTAGRAMPOSTSIZE: number = 1080
+
+export { INSTAGRAMPOSTSIZE }

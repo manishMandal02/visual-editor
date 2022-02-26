@@ -1,10 +1,12 @@
 import React from 'react'
-import { useCanvasStore } from '../../store/canvasBoard'
+import { useProjectBoardStore } from '../../store/projectBoard'
 import downloadToImage from '../../utils/downloadToImage'
 
 const Header = () => {
   // global state -
-  const setExportToImage = useCanvasStore((state) => state.setExportToImage)
+  const setExportToImage = useProjectBoardStore(
+    (state) => state.setExportToImage
+  )
   return (
     <div className="flex w-full items-center justify-between py-4 px-6">
       <p>Nav Menu</p>

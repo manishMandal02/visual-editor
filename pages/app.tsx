@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 // import CanvasArea from '../src/components/canvasArea/Index'
 import CanvasControls from '../src/components/canvasControls/Index'
 import Header from '../src/components/header/Index'
-import { useCanvasStore } from '../src/store/canvasBoard'
+import { useProjectBoardStore } from '../src/store/projectBoard'
 import downloadToImage from '../src/utils/downloadToImage'
 
 const CanvasArea = dynamic(() => import('../src/components/canvasArea/Index'), {
@@ -14,7 +14,7 @@ const App = () => {
   // state - selected element TODO: update type below from any
   const [selectedEl, setSelectedEl] = useState<null | any>(null)
 
-  const canvasSize = useCanvasStore((state) => state.size)
+  const canvasSize = useProjectBoardStore((state) => state.size)
 
   //export to image
   const exportToImageHandler = () => {

@@ -1,7 +1,7 @@
 import { KonvaEventObject } from 'konva/lib/Node'
 import React, { useEffect, useRef, useState } from 'react'
 import { Rect, Transformer } from 'react-konva'
-import { useRectangleStore } from '../../../store/canvasShapes'
+import { useRectangleStore } from '../../../store/shapes'
 import { rectangle } from '../../../types/canvas.type'
 
 interface Props {

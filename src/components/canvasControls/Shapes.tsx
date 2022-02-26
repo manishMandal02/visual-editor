@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 import React from 'react'
-import { useCircleStore, useRectangleStore } from '../../store/canvasShapes'
+import { useCircleStore, useRectangleStore } from '../../store/shapes'
 
 const Shapes = () => {
   const addCircle = useCircleStore((state) => state.add)

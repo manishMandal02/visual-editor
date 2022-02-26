@@ -1,29 +1,31 @@
 import { nanoid } from 'nanoid'
 import React, { useEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
-import { useCircleStore, useRectangleStore } from '../../store/canvasShapes'
+import { useCircleStore, useRectangleStore } from '../../store/shapes'
 
 import { Layer, Stage } from 'react-konva'
 import downloadToImage from '../../utils/downloadToImage'
-import { useCanvasStore } from '../../store/canvasBoard'
-import { canvasSize } from '../../types/canvas.type'
+import { useProjectBoardStore } from '../../store/projectBoard'
+import { projectBoardSize } from '../../types/canvas.type'
 import RectangleShape from './elements/Rectangle'
 
 const CircleShape = dynamic(() => import('./elements/Circle'), { ssr: false })
 
 // Component props
 interface Props {
-  size: canvasSize
+  size: projectBoardSize
 }
 
 const CanvasArea: React.FC<Props> = ({ size }) => {
   // global state - to check if export to image was clicked and set back to false after export
-  const isExportToImage = useCanvasStore((state) => state.isExportToImage)
-  const setExportToImage = useCanvasStore((state) => state.setExportToImage)
+  const isExportToImage = useProjectBoardStore((state) => state.isExportToImage)
+  const setExportToImage = useProjectBoardStore(
+    (state) => state.setExportToImage
+  )
 
   // global state -  getting canvas setup info
-  const projectName = useCanvasStore((state) => state.name)
-  const pixelRatio = useCanvasStore((state) => state.pixelRatio)
+  const projectName = useProjectBoardStore((state) => state.name)
+  const pixelRatio = useProjectBoardStore((state) => state.pixelRatio)
 
   // circle
   const circles = useCircleStore((state) => state.circles)

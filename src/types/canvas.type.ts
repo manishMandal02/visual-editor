@@ -6,7 +6,7 @@
 //   radius: number
 // }
 
-interface canvasSize {
+interface projectBoardSize {
   height: number
   width: number
 }
@@ -27,4 +27,4 @@ interface rectangle {
 
 type selectedElement = circle | rectangle
 
-export type { circle, selectedElement, rectangle, canvasSize }
+export type { circle, selectedElement, rectangle, projectBoardSize }

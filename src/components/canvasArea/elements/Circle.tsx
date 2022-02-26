@@ -1,7 +1,7 @@
 import { KonvaEventObject } from 'konva/lib/Node'
 import React, { useRef, useEffect, LegacyRef, useState } from 'react'
 import { Transformer, Circle } from 'react-konva'
-import { useCircleStore } from '../../../store/canvasShapes'
+import { useCircleStore } from '../../../store/shapes'
 import { circle } from '../../../types/canvas.type'
 
 interface Props {

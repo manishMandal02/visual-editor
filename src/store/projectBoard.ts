@@ -1,18 +1,18 @@
 import create, { SetState, GetState } from 'zustand'
-import { canvasSize, selectedElement } from '../types/canvas.type'
+import { projectBoardSize, selectedElement } from '../types/canvas.type'
 
-interface canvasBoardStore {
+interface projectBoardStore {
   name: string
   setName: (name: string) => void
-  size: canvasSize
-  setSize: (size: canvasSize) => void
+  size: projectBoardSize
+  setSize: (size: projectBoardSize) => void
   pixelRatio: number
   isExportToImage: boolean
   setExportToImage: (value: boolean) => void
 }
 
-export const useCanvasStore = create<canvasBoardStore>(
-  (set: SetState<canvasBoardStore>, get: GetState<canvasBoardStore>) => ({
+export const useProjectBoardStore = create<projectBoardStore>(
+  (set: SetState<projectBoardStore>, get: GetState<projectBoardStore>) => ({
     name: 'untitled',
     setName: (name) => set((state) => ({ ...state, name })),
     size: { height: 360, width: 360 },
