@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid'
 import React from 'react'
-import { CIRCLE, RECTANGLE } from '../../Constants'
-import { useProjectBoardStore } from '../../store/projectBoard'
-import { useCircleStore, useRectangleStore } from '../../store/shapes'
+import { CIRCLE, RECTANGLE } from '../../../../Constants'
+import { useProjectBoardStore } from '../../../../store/projectBoard'
+import { useCircleStore, useRectangleStore } from '../../../../store/shapes'
 
 const Shapes = () => {
   //global state - selectEl
@@ -14,15 +14,15 @@ const Shapes = () => {
 
   const initialCircleAttr = {
     type: CIRCLE,
-    x: 100,
-    y: 100,
+    x: 130,
+    y: 250,
     radius: 50,
   }
 
   const initialRectAttr = {
     type: RECTANGLE,
-    x: 100,
-    y: 100,
+    x: 130,
+    y: 250,
     width: 100,
     height: 50,
   }

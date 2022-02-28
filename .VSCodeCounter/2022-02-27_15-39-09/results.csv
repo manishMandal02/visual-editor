@@ -1,0 +1,32 @@
+"filename", "language", "JSON with Comments", "JavaScript", "JSON", "CSS", "TypeScript", "TypeScript React", "Markdown", "XML", "comment", "blank", "total"
+"d:\Programming\Projects\video-creator\frontend\README.md", "Markdown", 0, 0, 0, 0, 0, 0, 16, 0, 0, 12, 28
+"d:\Programming\Projects\video-creator\frontend\next-env.d.ts", "TypeScript", 0, 0, 0, 0, 0, 0, 0, 0, 4, 2, 6
+"d:\Programming\Projects\video-creator\frontend\next.config.js", "JavaScript", 0, 3, 0, 0, 0, 0, 0, 0, 1, 1, 5
+"d:\Programming\Projects\video-creator\frontend\package-lock.json", "JSON", 0, 0, 2695, 0, 0, 0, 0, 0, 0, 1, 2696
+"d:\Programming\Projects\video-creator\frontend\package.json", "JSON", 0, 0, 29, 0, 0, 0, 0, 0, 0, 1, 30
+"d:\Programming\Projects\video-creator\frontend\pages\_app.tsx", "TypeScript React", 0, 0, 0, 0, 0, 6, 0, 0, 0, 3, 9
+"d:\Programming\Projects\video-creator\frontend\pages\_document.tsx", "TypeScript React", 0, 0, 0, 0, 0, 21, 0, 0, 0, 4, 25
+"d:\Programming\Projects\video-creator\frontend\pages\api\hello.ts", "TypeScript", 0, 0, 0, 0, 10, 0, 0, 0, 1, 3, 14
+"d:\Programming\Projects\video-creator\frontend\pages\app.tsx", "TypeScript React", 0, 0, 0, 0, 0, 41, 0, 0, 5, 7, 53
+"d:\Programming\Projects\video-creator\frontend\pages\index.tsx", "TypeScript React", 0, 0, 0, 0, 0, 15, 0, 0, 0, 3, 18
+"d:\Programming\Projects\video-creator\frontend\postcss.config.js", "JavaScript", 0, 6, 0, 0, 0, 0, 0, 0, 0, 1, 7
+"d:\Programming\Projects\video-creator\frontend\prettier.config.js", "JavaScript", 0, 4, 0, 0, 0, 0, 0, 0, 0, 1, 5
+"d:\Programming\Projects\video-creator\frontend\public\vercel.svg", "XML", 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 4
+"d:\Programming\Projects\video-creator\frontend\src\Constants.ts", "TypeScript", 0, 0, 0, 0, 5, 0, 0, 0, 1, 3, 9
+"d:\Programming\Projects\video-creator\frontend\src\components\canvasArea\Index.tsx", "TypeScript React", 0, 0, 0, 0, 0, 98, 0, 0, 9, 12, 119
+"d:\Programming\Projects\video-creator\frontend\src\components\canvasArea\elements\Circle.tsx", "TypeScript React", 0, 0, 0, 0, 0, 62, 0, 0, 7, 7, 76
+"d:\Programming\Projects\video-creator\frontend\src\components\canvasArea\elements\Rectangle.tsx", "TypeScript React", 0, 0, 0, 0, 0, 68, 0, 0, 7, 7, 82
+"d:\Programming\Projects\video-creator\frontend\src\components\canvasControls\Index.tsx", "TypeScript React", 0, 0, 0, 0, 0, 15, 0, 0, 0, 3, 18
+"d:\Programming\Projects\video-creator\frontend\src\components\canvasControls\LeftMenu.tsx", "TypeScript React", 0, 0, 0, 0, 0, 5, 0, 0, 0, 3, 8
+"d:\Programming\Projects\video-creator\frontend\src\components\canvasControls\RightMenu\Index.tsx", "TypeScript React", 0, 0, 0, 0, 0, 5, 0, 0, 0, 3, 8
+"d:\Programming\Projects\video-creator\frontend\src\components\canvasControls\RightMenu\ShapesAll.tsx", "TypeScript React", 0, 0, 0, 0, 0, 58, 0, 0, 2, 7, 67
+"d:\Programming\Projects\video-creator\frontend\src\components\header\Index.tsx", "TypeScript React", 0, 0, 0, 0, 0, 22, 0, 0, 1, 3, 26
+"d:\Programming\Projects\video-creator\frontend\src\store\projectBoard.ts", "TypeScript", 0, 0, 0, 0, 39, 0, 0, 0, 0, 4, 43
+"d:\Programming\Projects\video-creator\frontend\src\store\shapes.ts", "TypeScript", 0, 0, 0, 0, 118, 0, 0, 0, 1, 7, 126
+"d:\Programming\Projects\video-creator\frontend\src\types\canvas.type.ts", "TypeScript", 0, 0, 0, 0, 32, 0, 0, 0, 0, 5, 37
+"d:\Programming\Projects\video-creator\frontend\src\utils\addEl.ts", "TypeScript", 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 4
+"d:\Programming\Projects\video-creator\frontend\src\utils\downloadToImage.ts", "TypeScript", 0, 0, 0, 0, 9, 0, 0, 0, 0, 2, 11
+"d:\Programming\Projects\video-creator\frontend\styles\globals.css", "CSS", 0, 0, 0, 10, 0, 0, 0, 0, 0, 3, 13
+"d:\Programming\Projects\video-creator\frontend\tailwind.config.js", "JavaScript", 0, 5, 0, 0, 0, 0, 0, 0, 39, 1, 45
+"d:\Programming\Projects\video-creator\frontend\tsconfig.json", "JSON with Comments", 20, 0, 0, 0, 0, 0, 0, 0, 0, 1, 21
+"Total", "-", 20, 18, 2724, 10, 215, 416, 16, 4, 78, 112, 3613

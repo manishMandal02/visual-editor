@@ -29,7 +29,7 @@ const App = () => {
         <Header />
       </div>
       <div
-        // onClick={setSelectedElNull}
+        onClick={setSelectedElNull}
         className="relative flex h-screen items-start justify-center"
       >
         <div className="absolute  left-0 h-4/5 w-96 ">

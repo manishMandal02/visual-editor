@@ -70,7 +70,7 @@ const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
   }, [selectedEl])
 
   return (
-    <div className="bg-gray-50 ">
+    <div className="bg-gray-50 " onClick={(e) => e.stopPropagation()}>
       <Stage
         // scale={{ x: 1, y: 1 }}
         onClick={(e) => {
