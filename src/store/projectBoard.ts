@@ -2,19 +2,22 @@ import create, { SetState, GetState } from 'zustand'
 import {
   projectBoardSize,
   projectBoardSetting,
-  elements,
+  element,
 } from '../types/canvas.type'
 
 interface projectBoardStore {
   setting: projectBoardSetting
   isExportToImage: boolean
-  selectedEl: elements | null
+  selectedEl: element | null
+  hoveredEl: element | null
   setName: (name: string) => void
   setSize: (size: projectBoardSize) => void
   setPixelRatio: (value: number) => void
   setExportToImage: (value: boolean) => void
-  setSelectedEl: (el: elements) => void
+  setSelectedEl: (el: element) => void
+  setHoveredEl: (el: element) => void
   setSelectedElNull: () => void
+  setHoveredElNull: () => void
 }
 
 export const useProjectBoardStore = create<projectBoardStore>(
@@ -26,6 +29,7 @@ export const useProjectBoardStore = create<projectBoardStore>(
     },
     isExportToImage: false,
     selectedEl: null,
+    hoveredEl: null,
     setName: (name) => set((state) => ({ ...state, name })),
     setSize: (size) =>
       set((state) => ({
@@ -37,6 +41,8 @@ export const useProjectBoardStore = create<projectBoardStore>(
     setExportToImage: (value) =>
       set((state) => ({ ...state, isExportToImage: value })),
     setSelectedEl: (el) => set((state) => ({ ...state, selectedEl: el })),
+    setHoveredEl: (el) => set((state) => ({ ...state, hoveredEl: el })),
     setSelectedElNull: () => set((state) => ({ ...state, selectedEl: null })),
+    setHoveredElNull: () => set((state) => ({ ...state, hoveredEl: null })),
   })
 )

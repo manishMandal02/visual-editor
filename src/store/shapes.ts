@@ -1,125 +1,65 @@
 import create, { SetState, GetState, StoreApi, StateCreator } from 'zustand'
 // import { devtools } from 'zustand/middleware'
 import produce from 'immer'
-import { circle, rectangle } from '../types/canvas.type'
+import { circle, rectangle, shape } from '../types/canvas.type'
+import { CIRCLE, RECTANGLE } from '../constants'
 
-interface circleStore {
-  circles: circle[]
-  add: (c: circle) => void
-  remove: (id: string) => void
+interface shapeStoreType {
+  shapes: shape[]
+  addShape: (shape: shape) => void
+  removeShape: (id: string) => void
   onDrag: (values: { id: string; x: number; y: number }) => void
-  onTransform: (values: {
-    id: string
-    x: number
-    y: number
-    radius: number
-  }) => void
+  onTransform: (shape: shape) => void
 }
 
-const circleStore:
-  | StateCreator<circleStore, SetState<circleStore>, GetState<circleStore>, any>
-  | StoreApi<circleStore> = (
-  set: SetState<circleStore>,
-  get: GetState<circleStore>
-) => ({
-  circles: [],
-  add: (circle) =>
-    set((state) => ({
-      ...state,
-      circles: [...state.circles, circle],
-    })),
-  remove: (id) =>
-    set(
-      produce((draft: circleStore) => {
-        const circleIndex = draft.circles.findIndex((c) => c.id === id)
-        draft.circles.splice(circleIndex, 1)
-      })
-    ),
-
-  onDrag: ({ id, x, y }) =>
-    set(
-      produce((draft: circleStore) => {
-        const circle = draft.circles.find((c) => c.id === id)
-        if (circle) {
-          circle.x = x
-          circle.y = y
-        }
-      })
-    ),
-  onTransform: ({ id, x, y, radius }) =>
-    set(
-      produce((draft: circleStore) => {
-        const circle = draft.circles.find((c) => c.id === id)
-        if (circle) {
-          circle.x = x
-          circle.y = y
-          circle.radius = radius
-        }
-      })
-    ),
-})
-
-interface rectangleStore {
-  rectangles: rectangle[]
-  add: (c: rectangle) => void
-  remove: (id: string) => void
-  onDrag: (values: { id: string; x: number; y: number }) => void
-  onTransform: (values: {
-    id: string
-    x: number
-    y: number
-    width: number
-    height: number
-  }) => void
-}
-
-const rectangleStore:
+const shapeStore:
   | StateCreator<
-      rectangleStore,
-      SetState<rectangleStore>,
-      GetState<rectangleStore>,
+      shapeStoreType,
+      SetState<shapeStoreType>,
+      GetState<shapeStoreType>,
       any
     >
-  | StoreApi<rectangleStore> = (
-  set: SetState<rectangleStore>,
-  get: GetState<rectangleStore>
-) => ({
-  rectangles: [],
-  add: (circle) =>
-    set((state) => ({
-      ...state,
-      rectangles: [...state.rectangles, circle],
-    })),
-  remove: (id) =>
+  | StoreApi<shapeStoreType> = (set: SetState<shapeStoreType>) => ({
+  shapes: [],
+  addShape: (shape) =>
+    set((state) => ({ ...state, shapes: [...state.shapes, shape] })),
+  removeShape: (id) =>
     set(
-      produce((draft: rectangleStore) => {
-        const rectangleIndex = draft.rectangles.findIndex((r) => r.id === id)
-        draft.rectangles.splice(rectangleIndex, 1)
+      produce((draft: shapeStoreType) => {
+        const shapeIndex = draft.shapes.findIndex((s) => s.id === id)
+        draft.shapes.splice(shapeIndex, 1)
       })
     ),
   onDrag: ({ id, x, y }) =>
     set(
-      produce((draft: rectangleStore) => {
-        const rectangle = draft.rectangles.find((r) => r.id === id)
-        if (rectangle) {
-          rectangle.x = x
-          rectangle.y = y
-        }
+      produce((draft: shapeStoreType) => {
+        const shape = draft.shapes.find((c) => c.id === id)
+        shape!.x = x
+        shape!.y = y
       })
     ),
-  onTransform: ({ id, x, y, width, height }) =>
+  onTransform: (shape) =>
     set(
-      produce((draft: rectangleStore) => {
-        const rectangle = draft.rectangles.find((r) => r.id === id)
-        if (rectangle) {
-          rectangle.x = x
-          rectangle.y = y
-          rectangle.width = width
-          rectangle.height = height
+      produce((draft: shapeStoreType) => {
+        const shapeToUpdate = draft.shapes.find((c) => c.id === shape.id)
+        shapeToUpdate!.x = shape.x
+        shapeToUpdate!.y = shape.y
+        if (
+          shapeToUpdate &&
+          shapeToUpdate.subType === CIRCLE &&
+          shape.subType === CIRCLE
+        ) {
+          shapeToUpdate!.radius = shape.radius
+        } else if (
+          shapeToUpdate &&
+          shapeToUpdate.subType === RECTANGLE &&
+          shape.subType === RECTANGLE
+        ) {
+          shapeToUpdate.width = shape.width
+          shapeToUpdate.height = shape.height
         }
       })
     ),
 })
 
-export const useCircleStore = create<circleStore>(circleStore)
-export const useRectangleStore = create<rectangleStore>(rectangleStore)
+export const useShapeStore = create<shapeStoreType>(shapeStore)
