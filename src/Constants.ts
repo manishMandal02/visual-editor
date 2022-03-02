@@ -2,7 +2,7 @@ const INSTAGRAM_POST_SIZE: number = 1080
 
 // elements
 const TYPE_SHAPE = 'shape'
-const TYPE_IMAGE = 'shape'
+const TYPE_IMAGE = 'image'
 // shapes
 const CIRCLE = 'circle'
 const RECTANGLE = 'rectangle'

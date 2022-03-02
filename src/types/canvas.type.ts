@@ -19,20 +19,31 @@ type element = shape | image
 
 type shape = circle | rectangle
 
-type circle = {
+interface shapeFill {
+  color: string
+  opacity: number
+}
+
+interface shapeBorder extends shapeFill {
+  size: number
+}
+
+interface shapeProps {
   id: string
   type: typeof TYPE_SHAPE
-  subType: typeof CIRCLE
   x: number
   y: number
+  fill: shapeFill
+  border: shapeBorder
+}
+
+interface circle extends shapeProps {
+  subType: typeof CIRCLE
   radius: number
 }
-type rectangle = {
-  id: string
-  type: typeof TYPE_SHAPE
+
+interface rectangle extends shapeProps {
   subType: typeof RECTANGLE
-  x: number
-  y: number
   height: number
   width: number
 }
@@ -52,6 +63,8 @@ export type {
   circle,
   shape,
   element,
+  shapeFill,
+  shapeBorder,
   rectangle,
   projectBoardSize,
   projectBoardSetting,

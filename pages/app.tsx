@@ -15,6 +15,9 @@ const App = () => {
   const setSelectedElNull = useProjectBoardStore(
     (state) => state.setSelectedElNull
   )
+  const setHoveredElNull = useProjectBoardStore(
+    (state) => state.setHoveredElNull
+  )
 
   const projectSetting = useProjectBoardStore((state) => state.setting)
 
@@ -24,7 +27,10 @@ const App = () => {
         <Header />
       </div>
       <div
-        onClick={setSelectedElNull}
+        onClick={() => {
+          setHoveredElNull()
+          setSelectedElNull()
+        }}
         className="relative flex h-11/12 items-start justify-center"
       >
         <div className="absolute left-0 h-full w-96 ">

@@ -19,11 +19,11 @@ const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
   //
   // global state - selected element
   const selectedEl = useProjectBoardStore((state) => state.selectedEl)
-  const hoveredEl = useProjectBoardStore((state) => state.hoveredEl)
-  const setSelectedEl = useProjectBoardStore((state) => state.setSelectedEl)
-  const setHoveredEl = useProjectBoardStore((state) => state.setHoveredEl)
-  const resetSelectedEl = useProjectBoardStore(
+  const setSelectedElNull = useProjectBoardStore(
     (state) => state.setSelectedElNull
+  )
+  const setHoveredElNull = useProjectBoardStore(
+    (state) => state.setHoveredElNull
   )
   // shape store
   const removeShape = useShapeStore((state) => state.removeShape)
@@ -59,7 +59,7 @@ const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
           removeShape(selectedEl.id)
         }
       }
-      resetSelectedEl()
+      setSelectedElNull()
     }
     document.addEventListener('keydown', deleteEl)
 
@@ -72,7 +72,8 @@ const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
         // scale={{ x: 1, y: 1 }}
         onClick={(e) => {
           e.cancelBubble = true
-          resetSelectedEl()
+          setSelectedElNull()
+          setHoveredElNull()
         }}
         dragBoundFunc={() => ({ x: 50, y: 50 })}
         // opacity={1}

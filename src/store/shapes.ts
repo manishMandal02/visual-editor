@@ -1,8 +1,21 @@
 import create, { SetState, GetState, StoreApi, StateCreator } from 'zustand'
 // import { devtools } from 'zustand/middleware'
 import produce from 'immer'
-import { circle, rectangle, shape } from '../types/canvas.type'
+import {
+  circle,
+  rectangle,
+  shape,
+  shapeBorder,
+  shapeFill,
+} from '../types/canvas.type'
 import { CIRCLE, RECTANGLE } from '../constants'
+
+interface fillUpdate extends shapeFill {
+  id: string
+}
+interface borderUpdate extends shapeBorder {
+  id: string
+}
 
 interface shapeStoreType {
   shapes: shape[]
@@ -10,6 +23,8 @@ interface shapeStoreType {
   removeShape: (id: string) => void
   onDrag: (values: { id: string; x: number; y: number }) => void
   onTransform: (shape: shape) => void
+  onFillUpdate: (fill: fillUpdate) => void
+  onBorderUpdate: (fill: borderUpdate) => void
 }
 
 const shapeStore:
@@ -33,7 +48,7 @@ const shapeStore:
   onDrag: ({ id, x, y }) =>
     set(
       produce((draft: shapeStoreType) => {
-        const shape = draft.shapes.find((c) => c.id === id)
+        const shape = draft.shapes.find((s) => s.id === id)
         shape!.x = x
         shape!.y = y
       })
@@ -41,7 +56,7 @@ const shapeStore:
   onTransform: (shape) =>
     set(
       produce((draft: shapeStoreType) => {
-        const shapeToUpdate = draft.shapes.find((c) => c.id === shape.id)
+        const shapeToUpdate = draft.shapes.find((s) => s.id === shape.id)
         shapeToUpdate!.x = shape.x
         shapeToUpdate!.y = shape.y
         if (
@@ -58,6 +73,23 @@ const shapeStore:
           shapeToUpdate.width = shape.width
           shapeToUpdate.height = shape.height
         }
+      })
+    ),
+  onFillUpdate: ({ id, color, opacity }) =>
+    set(
+      produce((draft: shapeStoreType) => {
+        const shape = draft.shapes.find((s) => s.id === id)
+        shape!.fill.color = color
+        shape!.fill.opacity = opacity
+      })
+    ),
+  onBorderUpdate: ({ id, color, opacity, size }) =>
+    set(
+      produce((draft: shapeStoreType) => {
+        const shape = draft.shapes.find((s) => s.id === id)
+        shape!.border.color = color
+        shape!.border.opacity = opacity
+        shape!.border.size = size
       })
     ),
 })

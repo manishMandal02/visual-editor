@@ -21,6 +21,8 @@ const Shapes = () => {
       x: 130,
       y: 250,
       radius: 50,
+      fill: { color: '#ffffff', opacity: 0 },
+      border: { color: '#000000', opacity: 100, size: 2 },
     }
     addShape(initialCircleAttr)
     setHoveredEl(initialCircleAttr)
@@ -35,6 +37,8 @@ const Shapes = () => {
       y: 250,
       width: 100,
       height: 50,
+      fill: { color: '#ffffff', opacity: 0 },
+      border: { color: '#000000', opacity: 100, size: 2 },
     }
     addShape(initialRectAttr)
     setHoveredEl(initialRectAttr)

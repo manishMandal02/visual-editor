@@ -1,3 +1,0 @@
-const addCircleEl = () => {}
-
-export { addCircleEl }

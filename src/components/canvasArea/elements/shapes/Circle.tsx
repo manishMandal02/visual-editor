@@ -6,6 +6,7 @@ import { CIRCLE, TYPE_SHAPE } from '../../../../constants'
 import { useProjectBoardStore } from '../../../../store/projectBoard'
 import { useShapeStore } from '../../../../store/shapes'
 import { circle, element } from '../../../../types/canvas.type'
+import hexToRGBA from '../../../../utils/common'
 
 interface Props {
   shapeProps: circle
@@ -44,7 +45,14 @@ const CircleShape: React.FC<Props> = ({
     }
   }, [isHovered])
 
-  console.log(isHovered)
+  const fillColorWithOpacity = hexToRGBA(
+    shapeProps.fill.color,
+    shapeProps.fill.opacity / 100
+  )
+  const borderColorWithOpacity = hexToRGBA(
+    shapeProps.border.color,
+    shapeProps.border.opacity / 100
+  )
 
   return (
     <>
@@ -53,9 +61,13 @@ const CircleShape: React.FC<Props> = ({
           evt.cancelBubble = true
           onClick(shapeProps)
         }}
+        // fill={shapeProps.fill.color}
+        fill={fillColorWithOpacity}
+        stroke={borderColorWithOpacity}
         onMouseOver={() => onHover(shapeProps)}
         onMouseLeave={() => onHoverEnd()}
         ref={shapeRef}
+        strokeWidth={shapeProps.border.size}
         x={shapeProps.x}
         y={shapeProps.y}
         radius={shapeProps.radius}
@@ -64,7 +76,6 @@ const CircleShape: React.FC<Props> = ({
         onDragEnd={(e: any) => {
           onDrag({ id: shapeProps.id, x: e.target.x(), y: e.target.y() })
         }}
-        stroke="black"
         onTransformEnd={() => {
           // transformer is changing scale
           const node: any = shapeRef.current
@@ -73,9 +84,7 @@ const CircleShape: React.FC<Props> = ({
           // node.scaleX(1)
           // node.scaleY(1)
           onTransform({
-            id: shapeProps.id,
-            type: TYPE_SHAPE,
-            subType: CIRCLE,
+            ...shapeProps,
             x: node.x(),
             y: node.y(),
             radius: node.radius(),

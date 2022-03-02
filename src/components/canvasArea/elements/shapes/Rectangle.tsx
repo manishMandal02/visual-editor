@@ -6,6 +6,7 @@ import { RECTANGLE, TYPE_SHAPE } from '../../../../constants'
 import { useProjectBoardStore } from '../../../../store/projectBoard'
 import { useShapeStore } from '../../../../store/shapes'
 import { element, rectangle } from '../../../../types/canvas.type'
+import hexToRGBA from '../../../../utils/common'
 
 interface Props {
   shapeProps: rectangle
@@ -44,6 +45,15 @@ const RectangleShape: React.FC<Props> = ({
       trRef.current.getLayer().batchDraw()
     }
   }, [isHovered])
+
+  const fillColorWithOpacity = hexToRGBA(
+    shapeProps.fill.color,
+    shapeProps.fill.opacity / 100
+  )
+  const borderColorWithOpacity = hexToRGBA(
+    shapeProps.border.color,
+    shapeProps.border.opacity / 100
+  )
   return (
     <>
       <Rect
@@ -54,6 +64,9 @@ const RectangleShape: React.FC<Props> = ({
         ref={shapeRef}
         x={shapeProps.x}
         y={shapeProps.y}
+        fill={fillColorWithOpacity}
+        stroke={borderColorWithOpacity}
+        strokeWidth={shapeProps.border.size}
         width={shapeProps.width}
         height={shapeProps.height}
         draggable
@@ -67,7 +80,6 @@ const RectangleShape: React.FC<Props> = ({
             y: e.target.y(),
           })
         }}
-        stroke="black"
         onTransformEnd={() => {
           // transformer is changing scale
           const node: any = shapeRef.current
@@ -76,9 +88,7 @@ const RectangleShape: React.FC<Props> = ({
           // node.scaleX(1)
           // node.scaleY(1)
           onTransform({
-            id: shapeProps.id,
-            type: TYPE_SHAPE,
-            subType: RECTANGLE,
+            ...shapeProps,
             x: node.x(),
             y: node.y(),
             height: node.height(),

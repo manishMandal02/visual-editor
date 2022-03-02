@@ -51,14 +51,7 @@ const Shapes = () => {
               onClick={onClickHandler}
               onDrag={onDragHandler}
               onTransform={onTransformHandler}
-              shapeProps={{
-                id: c.id,
-                type: c.type,
-                subType: c.subType,
-                x: c.x,
-                y: c.y,
-                radius: c.radius,
-              }}
+              shapeProps={c}
             />
           )
         }
@@ -75,15 +68,7 @@ const Shapes = () => {
               onClick={onClickHandler}
               onDrag={onDragHandler}
               onTransform={onTransformHandler}
-              shapeProps={{
-                id: r.id,
-                x: r.x,
-                type: r.type,
-                subType: r.subType,
-                y: r.y,
-                height: r.height,
-                width: r.width,
-              }}
+              shapeProps={r}
             />
           )
         }
