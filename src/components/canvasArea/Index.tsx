@@ -7,9 +7,7 @@ import { useShapeStore } from '../../store/shapes'
 import downloadToImage from '../../utils/downloadToImage'
 import { useProjectBoardStore } from '../../store/projectBoard'
 import { projectBoardSetting } from '../../types/canvas.type'
-import RectangleShape from './elements/shapes/Rectangle'
-import CircleShape from './elements/shapes/Circle'
-import { CIRCLE, RECTANGLE, TYPE_SHAPE } from '../../constants'
+import { TYPE_SHAPE } from '../../constants'
 import Shapes from './elements/shapes/Index'
 
 // Component props
@@ -68,7 +66,6 @@ const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
     return () => document.removeEventListener('keydown', deleteEl)
   }, [selectedEl])
 
-
   return (
     <div className="bg-gray-50 " onClick={(e) => e.stopPropagation()}>
       <Stage
@@ -85,7 +82,7 @@ const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
         ref={stageRef}
       >
         <Layer>
-          <Shapes  />
+          <Shapes />
         </Layer>
       </Stage>
     </div>
