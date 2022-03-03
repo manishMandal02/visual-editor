@@ -61,7 +61,6 @@ const CircleShape: React.FC<Props> = ({
           evt.cancelBubble = true
           onClick(shapeProps)
         }}
-        // fill={shapeProps.fill.color}
         fill={fillColorWithOpacity}
         stroke={borderColorWithOpacity}
         onMouseOver={() => onHover(shapeProps)}

@@ -2,7 +2,7 @@ import React from 'react'
 import { useProjectBoardStore } from '../../store/projectBoard'
 import LeftMenu from './leftMenu/Index'
 import RightMenu from './rightMenu/Index'
-import Shapes from './rightMenu/menuOptions/ShapesAll'
+import Shapes from './rightMenu/menuOptions/ShapesMenu'
 
 const CanvasControls = () => {
   // global state - selectedEl
