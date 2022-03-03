@@ -2,9 +2,6 @@ import { KonvaEventObject } from 'konva/lib/Node'
 import React, { useEffect, useRef, useState } from 'react'
 import { Rect, Transformer } from 'react-konva'
 //
-import { RECTANGLE, TYPE_SHAPE } from '../../../../constants'
-import { useProjectBoardStore } from '../../../../store/projectBoard'
-import { useShapeStore } from '../../../../store/shapes'
 import { element, rectangle } from '../../../../types/canvas.type'
 import hexToRGBA from '../../../../utils/common'
 

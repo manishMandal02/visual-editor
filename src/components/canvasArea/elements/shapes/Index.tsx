@@ -6,7 +6,6 @@ import { CIRCLE, RECTANGLE, TYPE_SHAPE } from '../../../../constants'
 import { useShapeStore } from '../../../../store/shapes'
 import { element, shape } from '../../../../types/canvas.type'
 import { useProjectBoardStore } from '../../../../store/projectBoard'
-import { stringify } from 'querystring'
 
 interface Props {}
 

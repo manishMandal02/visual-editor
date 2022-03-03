@@ -44,7 +44,7 @@ const Shapes = () => {
     setHoveredEl(initialRectAttr)
   }
   return (
-    <div className="flex h-full w-full justify-center p-4">
+    <div className="flex h-full w-full justify-center ">
       {/* box */}
       <div
         onClick={addRectangleHandler}

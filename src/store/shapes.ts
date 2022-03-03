@@ -1,13 +1,7 @@
 import create, { SetState, GetState, StoreApi, StateCreator } from 'zustand'
 // import { devtools } from 'zustand/middleware'
 import produce from 'immer'
-import {
-  circle,
-  rectangle,
-  shape,
-  shapeBorder,
-  shapeFill,
-} from '../types/canvas.type'
+import { shape, shapeBorder, shapeFill } from '../types/canvas.type'
 import { CIRCLE, RECTANGLE } from '../constants'
 
 interface fillUpdate extends shapeFill {

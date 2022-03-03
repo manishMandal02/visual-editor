@@ -1,4 +1,10 @@
-import { CIRCLE, RECTANGLE, TYPE_IMAGE, TYPE_SHAPE } from '../constants'
+import {
+  CIRCLE,
+  RECTANGLE,
+  TYPE_IMAGE,
+  TYPE_SHAPE,
+  TYPE_TEXT,
+} from '../constants'
 interface projectBoardSize {
   height: number
   width: number
@@ -13,7 +19,7 @@ interface projectBoardSetting {
 
 // elements
 
-type element = shape | image
+type element = shape | image | text
 
 // elements - shapes
 
@@ -48,6 +54,21 @@ interface rectangle extends shapeProps {
   width: number
 }
 
+// element - text
+
+interface textColor extends shapeFill {}
+interface text {
+  id: string
+  type: typeof TYPE_TEXT
+  text: string
+  x: number
+  y: number
+  width: number
+  height: number
+  color: textColor
+}
+
+// element - image
 type image = {
   id: string
   imageURL: string
@@ -62,6 +83,8 @@ type image = {
 export type {
   circle,
   shape,
+  text,
+  textColor,
   element,
   shapeFill,
   shapeBorder,

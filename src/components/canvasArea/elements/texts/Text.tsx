@@ -1,22 +1,22 @@
-import { KonvaEventObject } from 'konva/lib/Node'
 import React, { useRef, useEffect } from 'react'
-import { Transformer, Circle } from 'react-konva'
+import { KonvaEventObject } from 'konva/lib/Node'
+import { Transformer, Text } from 'react-konva'
 //
-import { circle, element } from '../../../../types/canvas.type'
+import { circle, element, text } from '../../../../types/canvas.type'
 import hexToRGBA from '../../../../utils/common'
 
 interface Props {
-  shapeProps: circle
+  shapeProps: text
   isSelected: boolean
   isHovered: boolean
   onClick: (el: element) => void
   onHover: (el: element) => void
   onDrag: (value: { id: string; x: number; y: number }) => void
-  onTransform: (circle: circle) => void
+  onTransform: (circle: text) => void
   onHoverEnd: () => void
 }
 
-const CircleShape: React.FC<Props> = ({
+const TextElement: React.FC<Props> = ({
   shapeProps,
   isSelected,
   isHovered,
@@ -26,7 +26,6 @@ const CircleShape: React.FC<Props> = ({
   onTransform,
   onHoverEnd,
 }) => {
-  // shape size and transform
   const shapeRef = useRef(null)
   const trRef = useRef<any>(null)
   useEffect(() => {
@@ -35,6 +34,7 @@ const CircleShape: React.FC<Props> = ({
       trRef.current.getLayer().batchDraw()
     }
   }, [isSelected])
+
   useEffect(() => {
     if (isHovered) {
       trRef.current.nodes([shapeRef.current])
@@ -43,34 +43,34 @@ const CircleShape: React.FC<Props> = ({
   }, [isHovered])
 
   const fillColorWithOpacity = hexToRGBA(
-    shapeProps.fill.color,
-    shapeProps.fill.opacity / 100
-  )
-  const borderColorWithOpacity = hexToRGBA(
-    shapeProps.border.color,
-    shapeProps.border.opacity / 100
+    shapeProps.color.color,
+    shapeProps.color.opacity / 100
   )
 
   return (
     <>
-      <Circle
+      <Text
         onClick={(evt: KonvaEventObject<MouseEvent>) => {
           evt.cancelBubble = true
           onClick(shapeProps)
         }}
-        fill={fillColorWithOpacity}
-        stroke={borderColorWithOpacity}
-        onMouseOver={() => onHover(shapeProps)}
-        onMouseLeave={() => onHoverEnd()}
         ref={shapeRef}
-        strokeWidth={shapeProps.border.size}
         x={shapeProps.x}
         y={shapeProps.y}
-        radius={shapeProps.radius}
+        text={shapeProps.text}
+        fill={fillColorWithOpacity}
+        width={shapeProps.width}
+        height={shapeProps.height}
         draggable
+        onMouseOver={() => onHover(shapeProps)}
+        onMouseLeave={() => onHoverEnd()}
         onDragStart={() => onHover(shapeProps)}
         onDragEnd={(e: any) => {
-          onDrag({ id: shapeProps.id, x: e.target.x(), y: e.target.y() })
+          onDrag({
+            id: shapeProps.id,
+            x: e.target.x(),
+            y: e.target.y(),
+          })
         }}
         onTransformEnd={() => {
           // transformer is changing scale
@@ -83,7 +83,8 @@ const CircleShape: React.FC<Props> = ({
             ...shapeProps,
             x: node.x(),
             y: node.y(),
-            radius: node.radius(),
+            height: node.height(),
+            width: node.width(),
           })
         }}
       />
@@ -99,15 +100,16 @@ const CircleShape: React.FC<Props> = ({
       )}
       {isHovered && !isSelected && (
         <Transformer
-          anchorSize={2}
+          anchorSize={0}
           anchorCornerRadius={5}
           anchorStrokeWidth={0.4}
           borderStroke={'#0EA5E9'}
-          borderStrokeWidth={0.8}
+          borderStrokeWidth={1}
           ref={trRef}
         />
       )}
     </>
   )
 }
-export default CircleShape
+
+export default TextElement

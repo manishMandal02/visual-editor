@@ -3,13 +3,21 @@ import React from 'react'
 
 import { FaShapes } from 'react-icons/fa'
 import { MdOutlineTextFields } from 'react-icons/md'
+import { useProjectBoardStore } from '../../../store/projectBoard'
 
 const LeftMenu = () => {
   // On menu click
-  const searchParams = new URLSearchParams()
+  const setSelectedElNull = useProjectBoardStore(
+    (state) => state.setSelectedElNull
+  )
+  const setHoveredElNull = useProjectBoardStore(
+    (state) => state.setHoveredElNull
+  )
 
   const router = useRouter()
   const setSearchParams = (menu: string) => {
+    setSelectedElNull()
+    setHoveredElNull()
     router.push({
       query: { m: menu },
     })

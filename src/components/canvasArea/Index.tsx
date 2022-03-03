@@ -7,8 +7,10 @@ import { useShapeStore } from '../../store/shapes'
 import downloadToImage from '../../utils/downloadToImage'
 import { useProjectBoardStore } from '../../store/projectBoard'
 import { projectBoardSetting } from '../../types/canvas.type'
-import { TYPE_SHAPE } from '../../constants'
+import { TYPE_SHAPE, TYPE_TEXT } from '../../constants'
 import Shapes from './elements/shapes/Index'
+import Texts from './elements/texts/Index'
+import { useTextStore } from '../../store/text'
 
 // Component props
 interface Props {
@@ -27,6 +29,8 @@ const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
   )
   // shape store
   const removeShape = useShapeStore((state) => state.removeShape)
+  // text store
+  const removeText = useTextStore((state) => state.removeText)
 
   // handel export to image
   //
@@ -53,13 +57,14 @@ const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
   // deleting selected el on delete keypress
   useEffect(() => {
     const deleteEl = (e: KeyboardEvent) => {
+      e.stopPropagation()
       if (e.code === 'Delete') {
-        console.log(selectedEl?.type)
         if (selectedEl?.type === TYPE_SHAPE) {
           removeShape(selectedEl.id)
+        } else if (selectedEl?.type === TYPE_TEXT) {
+          removeText(selectedEl.id)
         }
       }
-      setSelectedElNull()
     }
     document.addEventListener('keydown', deleteEl)
 
@@ -84,6 +89,7 @@ const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
       >
         <Layer>
           <Shapes />
+          <Texts />
         </Layer>
       </Stage>
     </div>
