@@ -14,7 +14,7 @@ const MenuOptions = () => {
       ) : query?.m === 'text' ? (
         <TextMenu />
       ) : (
-        <p>settings</p>
+        <ShapesMenu />
       )}
     </div>
   )

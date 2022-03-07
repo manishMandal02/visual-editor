@@ -30,18 +30,18 @@ const LeftMenu = () => {
           onClick={() => {
             setSearchParams('shapes')
           }}
-          className="flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-sky-700 p-2  text-sm"
+          className=" flex cursor-pointer flex-col items-center justify-center border-sky-700  p-2 text-sm text-gray-50"
         >
-          <FaShapes className="mb-1 text-3xl" />
+          <FaShapes className="mb-1 rounded-md border-2 border-gray-500 p-3 text-6xl" />
           Shapes
         </div>
         <div
           onClick={() => {
             setSearchParams('text')
           }}
-          className="mt-2 flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-sky-700 p-2 px-5 text-sm"
+          className=" mt-1 flex cursor-pointer flex-col items-center justify-center border-sky-700 text-gray-50"
         >
-          <MdOutlineTextFields className="text-3xl" />
+          <MdOutlineTextFields className="mb-1 rounded-md  border-2 border-gray-500 p-3 text-6xl" />
           Text
         </div>
       </div>

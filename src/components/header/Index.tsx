@@ -9,7 +9,9 @@ const Header = () => {
   )
   return (
     <div className="flex w-full items-center justify-between py-4 px-6">
-      <p>Nav Menu</p>
+      <p className="text-gray-200">
+        Note: This app is still in the development stage
+      </p>
       <div>
         <button
           onClick={() => setExportToImage(true)}
