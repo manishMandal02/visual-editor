@@ -80,16 +80,16 @@ const RectangleShape: React.FC<Props> = ({
         onTransformEnd={() => {
           // transformer is changing scale
           const node: any = shapeRef.current
-          // const scaleX = node.scaleX()
-          // const scaleY = node.scaleY()
-          // node.scaleX(1)
-          // node.scaleY(1)
+          const scaleX = node.scaleX()
+          const scaleY = node.scaleY()
+          node.scaleX(1)
+          node.scaleY(1)
           onTransform({
             ...shapeProps,
             x: node.x(),
             y: node.y(),
-            height: node.height(),
-            width: node.width(),
+            width: Math.max(5, node.width() * scaleX),
+            height: Math.max(node.height() * scaleY),
           })
         }}
       />
