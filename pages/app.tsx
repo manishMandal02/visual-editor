@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 // import CanvasArea from '../src/components/canvasArea/Index'
 import CanvasControls from '../src/components/canvasControls/Index'
 import Header from '../src/components/header/Index'
-import { useProjectBoardStore } from '../src/store/projectBoard'
+import { useAppStore } from '../src/store/index'
 import downloadToImage from '../src/utils/downloadToImage'
 
 const CanvasArea = dynamic(() => import('../src/components/canvasArea/Index'), {
@@ -11,15 +11,11 @@ const CanvasArea = dynamic(() => import('../src/components/canvasArea/Index'), {
 })
 
 const App = () => {
-  // state - selected element TODO: update type below from any
-  const setSelectedElNull = useProjectBoardStore(
-    (state) => state.setSelectedElNull
-  )
-  const setHoveredElNull = useProjectBoardStore(
-    (state) => state.setHoveredElNull
-  )
+  // Global state
+  const setSelectedElNull = useAppStore((state) => state.setSelectedElNull)
+  const setHoveredElNull = useAppStore((state) => state.setHoveredElNull)
 
-  const projectSetting = useProjectBoardStore((state) => state.setting)
+  const projectSetting = useAppStore((state) => state.setting)
 
   return (
     <div className="h-screen bg-primary-dark">

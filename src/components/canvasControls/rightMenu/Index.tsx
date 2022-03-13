@@ -1,11 +1,11 @@
 import React from 'react'
-import { useProjectBoardStore } from '../../../store/projectBoard'
+import { useAppStore } from '../../../store/index'
 import MenuOptions from './menuOptions/Index'
 import SelectedElOptions from './selectedElOptions/Index'
 
 const RightMenu = () => {
   // global state - selected element
-  const selectedEl = useProjectBoardStore((state) => state.selectedEl)
+  const selectedEl = useAppStore((state) => state.selectedEl)
   return (
     <div className="">
       {selectedEl ? (

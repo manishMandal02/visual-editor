@@ -1,38 +1,58 @@
 import React, { useEffect, useState } from 'react'
-import { useTextStore } from '../../../../store/text'
-import { text, textColor } from '../../../../types/canvas.type'
+import { useAppStore } from '../../../../store/index'
+import { Text, TextAlign } from '../../../../types/canvas.type'
 
 interface Props {
-  selectedEl: text
+  selectedEl: Text
 }
 
 const TextOptions: React.FC<Props> = ({ selectedEl }) => {
-  const [textColor, setTextColor] = useState<textColor>({
-    color: '#ffffff',
-    opacity: 100,
-  })
   const [text, setText] = useState<string>('')
+  const [textColor, setTextColor] = useState<string>('#ffffff')
+  const [opacity, setOpacity] = useState<number>(100)
+  const [fontSize, setFontSize] = useState<number>(20)
+  const [fontFamily, setFontFamily] = useState<string>('')
+  const [textAlign, setTextAlign] = useState<TextAlign>('center')
+  const [lineHeight, setLineHeight] = useState<number>(1)
 
   useEffect(() => {
-    setTextColor(selectedEl.color)
     setText(selectedEl.text)
+    setTextColor(selectedEl.style.color)
+    setOpacity(selectedEl.style.opacity)
+    setFontSize(selectedEl.style.fontSize)
+    setFontFamily(selectedEl.style.fontFamily)
+    setTextAlign(selectedEl.style.align)
+    setLineHeight(selectedEl.style.lineHeight)
   }, [selectedEl])
 
   useEffect(() => {
-    onColorUpdate({
-      id: selectedEl.id,
-      color: textColor.color,
-      opacity: textColor.opacity,
+    onTextPropertiesUpdate({
+      color: textColor,
+      align: textAlign,
+      opacity,
+      fontFamily,
+      fontSize,
+      lineHeight,
     })
-  }, [textColor, selectedEl])
+  }, [
+    textColor,
+    textAlign,
+    opacity,
+    fontFamily,
+    fontSize,
+    lineHeight,
+    selectedEl,
+  ])
 
   useEffect(() => {
     onTextUpdate(selectedEl.id, text)
   }, [text, selectedEl])
 
   // global state - shape store
-  const onColorUpdate = useTextStore((state) => state.onColorUpdate)
-  const onTextUpdate = useTextStore((state) => state.onTextUpdate)
+  const onTextPropertiesUpdate = useAppStore(
+    (state) => state.onTextPropertiesUpdate
+  )
+  const onTextUpdate = useAppStore((state) => state.onTextUpdate)
 
   return (
     <div className="p-5 text-gray-100">
@@ -54,12 +74,9 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
             <p>Color</p>
             <input
               type="color"
-              value={textColor.color}
+              value={textColor}
               onChange={(e) => {
-                setTextColor((state) => ({
-                  ...state,
-                  color: e.target.value,
-                }))
+                setTextColor(e.target.value)
               }}
               className="appearance-none"
             />
@@ -68,12 +85,9 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
             <p>Opacity</p>
             <input
               type="range"
-              value={textColor.opacity}
+              value={opacity}
               onChange={(e) => {
-                setTextColor((state) => ({
-                  ...state,
-                  opacity: Number(e.target.value),
-                }))
+                setOpacity(Number(e.target.value))
               }}
             />
           </div>

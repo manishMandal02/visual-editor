@@ -1,74 +1,50 @@
 import create, { SetState, GetState, StoreApi, StateCreator } from 'zustand'
 // import { devtools } from 'zustand/middleware'
 import produce from 'immer'
-import { textColor, text } from '../types/canvas.type'
+import { TextStyle, Text } from '../types/canvas.type'
+import { ElementsSlice, StoreSlice } from '../types/store.types'
+import { TYPE_TEXT } from '../constants'
 
-interface fillUpdate extends textColor {
-  id: string
-}
-
-interface textStoreType {
-  texts: text[]
-  addText: (text: text) => void
-  removeText: (id: string) => void
-  onDrag: (values: { id: string; x: number; y: number }) => void
-  onTransform: (text: text) => void
+interface TextSliceType {
+  addText: (text: Text) => void
   onTextUpdate: (id: string, text: string) => void
-  onColorUpdate: (fill: fillUpdate) => void
+  onTextPropertiesUpdate: (style: TextStyle) => void
 }
 
-const textStore:
-  | StateCreator<
-      textStoreType,
-      SetState<textStoreType>,
-      GetState<textStoreType>,
-      any
-    >
-  | StoreApi<textStoreType> = (set: SetState<textStoreType>) => ({
-  texts: [],
+export const createTextSlice: StoreSlice<TextSliceType, ElementsSlice> = (
+  set,
+  get
+) => ({
   addText: (text) =>
-    set((state) => ({ ...state, texts: [...state.texts, text] })),
-  removeText: (id) =>
-    set(
-      produce((draft: textStoreType) => {
-        const textIndex = draft.texts.findIndex((t) => t.id === id)
-        draft.texts.splice(textIndex, 1)
-      })
-    ),
-  onDrag: ({ id, x, y }) =>
-    set(
-      produce((draft: textStoreType) => {
-        const text = draft.texts.find((t) => t.id === id)
-        text!.x = x
-        text!.y = y
-      })
-    ),
-  onTransform: (text) =>
-    set(
-      produce((draft: textStoreType) => {
-        const textToUpdate = draft.texts.find((t) => t.id === text.id)
-        textToUpdate!.x = text.x
-        textToUpdate!.y = text.y
-
-        textToUpdate!.width = text.width
-        textToUpdate!.height = text.height
-      })
-    ),
+    set((state) => ({ ...state, elements: [...state.elements, text] })),
   onTextUpdate: (id, text) =>
     set(
-      produce((drafts: textStoreType) => {
-        const textToUpdate = drafts.texts.find((t) => t.id === id)
-        textToUpdate!.text = text
+      produce((drafts: ElementsSlice) => {
+        const textToUpdate = drafts.elements.find((t) => t.id === id)
+        if (textToUpdate?.type === TYPE_TEXT) {
+          textToUpdate!.text = text
+        }
       })
     ),
-  onColorUpdate: ({ id, color, opacity }) =>
+  onTextPropertiesUpdate: ({
+    color,
+    opacity,
+    fontSize,
+    fontFamily,
+    align,
+    lineHeight,
+  }) =>
     set(
-      produce((draft: textStoreType) => {
-        const text = draft.texts.find((t) => t.id === id)
-        text!.color.color = color
-        text!.color.opacity = opacity
+      produce((draft: ElementsSlice) => {
+        const text = draft.elements.find((t) => t.id === get().selectedEl?.id)
+        if (text?.type === TYPE_TEXT) {
+          text!.style.color = color
+          text!.style.opacity = opacity
+          text!.style.align = align
+          text!.style.fontSize = fontSize
+          text!.style.fontFamily = fontFamily
+          text!.style.lineHeight = lineHeight
+        }
       })
     ),
 })
-
-export const useTextStore = create<textStoreType>(textStore)

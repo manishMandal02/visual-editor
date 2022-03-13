@@ -1,11 +1,11 @@
 import React from 'react'
 import { TYPE_IMAGE, TYPE_SHAPE, TYPE_TEXT } from '../../../../constants'
-import { element } from '../../../../types/canvas.type'
+import { Element } from '../../../../types/canvas.type'
 import ShapeOptions from './ShapeOptions'
 import TextOptions from './TextOptions'
 
 interface Props {
-  selectedEl: element | null
+  selectedEl: Element | null
 }
 
 const SelectedElOptions: React.FC<Props> = ({ selectedEl }) => {

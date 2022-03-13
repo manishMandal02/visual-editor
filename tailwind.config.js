@@ -11,7 +11,7 @@ module.exports = {
           DEFAULT: '#0EA5E9',
           dark: '#0F172A',
           dark2: '#1E293B',
-          mid: '#CBD5E1',
+          mid: '#0F172A',
         },
       },
       borderWidth: {

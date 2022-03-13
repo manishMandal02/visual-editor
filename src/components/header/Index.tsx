@@ -1,12 +1,10 @@
 import React from 'react'
-import { useProjectBoardStore } from '../../store/projectBoard'
+import { useAppStore } from '../../store/index'
 import downloadToImage from '../../utils/downloadToImage'
 
 const Header = () => {
-  // global state -
-  const setExportToImage = useProjectBoardStore(
-    (state) => state.setExportToImage
-  )
+  // global state
+  const setExportToImage = useAppStore((state) => state.setExportToImage)
   return (
     <div className="flex w-full items-center justify-between py-4 px-6">
       <p className="text-gray-200">

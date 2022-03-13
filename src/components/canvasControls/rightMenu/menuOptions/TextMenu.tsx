@@ -1,26 +1,32 @@
 import { nanoid } from 'nanoid'
 import React from 'react'
 import { TYPE_TEXT } from '../../../../constants'
-import { useProjectBoardStore } from '../../../../store/projectBoard'
-import { useTextStore } from '../../../../store/text'
-import { text } from '../../../../types/canvas.type'
+import { useAppStore } from '../../../../store/index'
+import { Text as TextType } from '../../../../types/canvas.type'
 
 const TextMenu = () => {
-  // global state - porject store
-  const addText = useTextStore((state) => state.addText)
-  // global state - pro store
-  const setHoveredEl = useProjectBoardStore((state) => state.setHoveredEl)
+  // global state
+  const addText = useAppStore((state) => state.addText)
+  const setHoveredEl = useAppStore((state) => state.setHoveredEl)
   const addTextToBoard = () => {
     const id = nanoid()
-    const initialRectAttr: text = {
+    const initialRectAttr: TextType = {
       type: TYPE_TEXT,
+      subType: TYPE_TEXT,
       id,
       text: 'Sample Text',
       x: 130,
       y: 250,
-      width: 100,
-      height: 50,
-      color: { color: '#000000', opacity: 100 },
+      width: 130,
+      height: 25,
+      style: {
+        color: '#000000',
+        opacity: 100,
+        align: 'center',
+        fontFamily: 'Poppins',
+        fontSize: 20,
+        lineHeight: 1,
+      },
     }
     addText(initialRectAttr)
     setHoveredEl(initialRectAttr)

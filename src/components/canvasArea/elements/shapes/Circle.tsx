@@ -2,17 +2,16 @@ import { KonvaEventObject } from 'konva/lib/Node'
 import React, { useRef, useEffect } from 'react'
 import { Transformer, Circle } from 'react-konva'
 //
-import { circle, element } from '../../../../types/canvas.type'
-import hexToRGBA from '../../../../utils/common'
+import { Circle as CircleType, Element } from '../../../../types/canvas.type'
 
 interface Props {
-  shapeProps: circle
+  shapeProps: CircleType
   isSelected: boolean
   isHovered: boolean
-  onClick: (el: element) => void
-  onHover: (el: element) => void
+  onClick: (el: Element) => void
+  onHover: (el: Element) => void
   onDrag: (value: { id: string; x: number; y: number }) => void
-  onTransform: (circle: circle) => void
+  onTransform: (circle: CircleType) => void
   onHoverEnd: () => void
 }
 
@@ -42,14 +41,8 @@ const CircleShape: React.FC<Props> = ({
     }
   }, [isHovered])
 
-  const fillColorWithOpacity = hexToRGBA(
-    shapeProps.fill.color,
-    shapeProps.fill.opacity / 100
-  )
-  const borderColorWithOpacity = hexToRGBA(
-    shapeProps.border.color,
-    shapeProps.border.opacity / 100
-  )
+  // transform anchors
+  const anchors = ['top-left', 'top-right', 'bottom-left', 'bottom-right']
 
   return (
     <>
@@ -58,32 +51,41 @@ const CircleShape: React.FC<Props> = ({
           evt.cancelBubble = true
           onClick(shapeProps)
         }}
-        fill={fillColorWithOpacity}
-        stroke={borderColorWithOpacity}
+        fill={shapeProps.style.fillColor}
+        stroke={shapeProps.style.strokeColor}
+        strokeWidth={shapeProps.style.strokeWidth}
         onMouseOver={() => onHover(shapeProps)}
         onMouseLeave={() => onHoverEnd()}
         ref={shapeRef}
-        strokeWidth={shapeProps.border.size}
         x={shapeProps.x}
         y={shapeProps.y}
-        radius={shapeProps.radius}
+        // radius={shapeProps.radius}
+        height={shapeProps.height}
+        width={shapeProps.width}
         draggable
         onDragStart={() => onHover(shapeProps)}
         onDragEnd={(e: any) => {
-          onDrag({ id: shapeProps.id, x: e.target.x(), y: e.target.y() })
+          onDrag({
+            id: shapeProps.id,
+
+            x: e.target.x(),
+            y: e.target.y(),
+          })
         }}
         onTransformEnd={() => {
           // transformer is changing scale
           const node: any = shapeRef.current
-          // const scaleX = node.scaleX()
-          // const scaleY = node.scaleY()
-          // node.scaleX(1)
-          // node.scaleY(1)
+          const scaleX = node.scaleX()
+          const scaleY = node.scaleY()
+          node.scaleX(1)
+          node.scaleY(1)
           onTransform({
             ...shapeProps,
             x: node.x(),
             y: node.y(),
-            radius: node.radius(),
+            width: Math.max(5, node.width() * scaleX),
+            height: Math.max(node.height() * scaleY),
+            // radius: node.radius(),
           })
         }}
       />
@@ -94,6 +96,7 @@ const CircleShape: React.FC<Props> = ({
           anchorStrokeWidth={0.4}
           borderStroke={'#0EA5E9'}
           borderStrokeWidth={0.8}
+          enabledAnchors={anchors}
           ref={trRef}
         />
       )}

@@ -1,16 +1,11 @@
 import React, { useEffect, useRef } from 'react'
-import dynamic from 'next/dynamic'
 import { Layer, Stage } from 'react-konva'
 
 //
-import { useShapeStore } from '../../store/shapes'
 import downloadToImage from '../../utils/downloadToImage'
-import { useProjectBoardStore } from '../../store/projectBoard'
 import { projectBoardSetting } from '../../types/canvas.type'
-import { TYPE_SHAPE, TYPE_TEXT } from '../../constants'
-import Shapes from './elements/shapes/Index'
-import Texts from './elements/texts/Index'
-import { useTextStore } from '../../store/text'
+import { useAppStore } from '../../store'
+import Elements from './elements/Index'
 
 // Component props
 interface Props {
@@ -20,25 +15,16 @@ interface Props {
 const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
   //
   // global state - selected element
-  const selectedEl = useProjectBoardStore((state) => state.selectedEl)
-  const setSelectedElNull = useProjectBoardStore(
-    (state) => state.setSelectedElNull
-  )
-  const setHoveredElNull = useProjectBoardStore(
-    (state) => state.setHoveredElNull
-  )
-  // shape store
-  const removeShape = useShapeStore((state) => state.removeShape)
-  // text store
-  const removeText = useTextStore((state) => state.removeText)
+  const selectedEl = useAppStore((state) => state.selectedEl)
+  const setSelectedElNull = useAppStore((state) => state.setSelectedElNull)
+  const setHoveredElNull = useAppStore((state) => state.setHoveredElNull)
+  const removeElement = useAppStore((state) => state.removeElement)
 
   // handel export to image
   //
   // global state - to check if export to image was clicked and set back to false after export
-  const isExportToImage = useProjectBoardStore((state) => state.isExportToImage)
-  const setExportToImage = useProjectBoardStore(
-    (state) => state.setExportToImage
-  )
+  const isExportToImage = useAppStore((state) => state.isExportToImage)
+  const setExportToImage = useAppStore((state) => state.setExportToImage)
   const stageRef = useRef<any>(null)
 
   const handleExportToImage = () => {
@@ -59,10 +45,8 @@ const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
     const deleteEl = (e: KeyboardEvent) => {
       e.stopPropagation()
       if (e.code === 'Delete') {
-        if (selectedEl?.type === TYPE_SHAPE) {
-          removeShape(selectedEl.id)
-        } else if (selectedEl?.type === TYPE_TEXT) {
-          removeText(selectedEl.id)
+        if (selectedEl) {
+          removeElement(selectedEl.id)
         }
       }
     }
@@ -88,8 +72,7 @@ const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
         ref={stageRef}
       >
         <Layer>
-          <Shapes />
-          <Texts />
+          <Elements />
         </Layer>
       </Stage>
     </div>

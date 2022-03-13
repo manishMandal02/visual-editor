@@ -5,71 +5,75 @@ import {
   TYPE_SHAPE,
   TYPE_TEXT,
 } from '../constants'
-interface projectBoardSize {
-  height: number
-  width: number
-}
 
 // project Board Types
 interface projectBoardSetting {
   name: string
-  size: projectBoardSize
+  size: ProjectBoardSize
   pixelRatio: number
 }
-
-// elements
-
-type element = shape | image | text
-
-// elements - shapes
-
-type shape = circle | rectangle
-
-interface shapeFill {
-  color: string
-  opacity: number
-}
-
-interface shapeBorder extends shapeFill {
-  size: number
-}
-
-interface shapeProps {
-  id: string
-  type: typeof TYPE_SHAPE
-  x: number
-  y: number
-  fill: shapeFill
-  border: shapeBorder
-}
-
-interface circle extends shapeProps {
-  subType: typeof CIRCLE
-  radius: number
-}
-
-interface rectangle extends shapeProps {
-  subType: typeof RECTANGLE
+interface ProjectBoardSize {
   height: number
   width: number
 }
 
-// element - text
+// elements
 
-interface textColor extends shapeFill {}
-interface text {
+type Element = Shape | Image | Text
+
+// elements - shapes
+
+type Shape = Circle | Rectangle
+
+interface ShapeStyle {
+  fillColor: string
+  strokeColor: string
+  strokeWidth: number
+}
+
+interface ShapeProps {
+  id: string
+  type: typeof TYPE_SHAPE
+  x: number
+  y: number
+  style: ShapeStyle
+  height: number
+  width: number
+}
+
+interface Circle extends ShapeProps {
+  subType: typeof CIRCLE
+}
+
+interface Rectangle extends ShapeProps {
+  subType: typeof RECTANGLE
+}
+
+// element - text
+interface Text {
   id: string
   type: typeof TYPE_TEXT
+  subType: typeof TYPE_TEXT
   text: string
   x: number
   y: number
   width: number
   height: number
-  color: textColor
+  style: TextStyle
+}
+interface TextStyle {
+  color: string
+  opacity: number
+  fontSize: number
+  fontFamily: string
+  align: TextAlign
+  lineHeight: number
 }
 
+type TextAlign = 'left' | 'center' | 'right'
+
 // element - image
-type image = {
+type Image = {
   id: string
   imageURL: string
   type: typeof TYPE_IMAGE
@@ -81,14 +85,14 @@ type image = {
 }
 
 export type {
-  circle,
-  shape,
-  text,
-  textColor,
-  element,
-  shapeFill,
-  shapeBorder,
-  rectangle,
-  projectBoardSize,
+  Circle,
+  Shape,
+  Text,
+  TextStyle,
+  TextAlign,
+  Element,
+  ShapeStyle,
+  Rectangle,
+  ProjectBoardSize,
   projectBoardSetting,
 }

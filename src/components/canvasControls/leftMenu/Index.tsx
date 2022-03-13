@@ -1,18 +1,40 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect } from 'react'
 
-import { FaShapes } from 'react-icons/fa'
+import { FaShapes, FaRegImage } from 'react-icons/fa'
+import { RiSettingsFill } from 'react-icons/ri'
+import { HiTemplate } from 'react-icons/hi'
 import { MdOutlineTextFields } from 'react-icons/md'
-import { useProjectBoardStore } from '../../../store/projectBoard'
+import { useAppStore } from '../../../store/index'
+
+const menuItems = [
+  {
+    name: 'Settings',
+    icon: RiSettingsFill,
+  },
+  {
+    name: 'Templates',
+    icon: HiTemplate,
+  },
+  {
+    name: 'Elements',
+    icon: FaShapes,
+  },
+  {
+    name: 'Text',
+    icon: MdOutlineTextFields,
+  },
+  {
+    name: 'Images',
+    icon: FaRegImage,
+  },
+]
 
 const LeftMenu = () => {
   // On menu click
-  const setSelectedElNull = useProjectBoardStore(
-    (state) => state.setSelectedElNull
-  )
-  const setHoveredElNull = useProjectBoardStore(
-    (state) => state.setHoveredElNull
-  )
+  const setSelectedElNull = useAppStore((state) => state.setSelectedElNull)
+  const setHoveredElNull = useAppStore((state) => state.setHoveredElNull)
+  const selectedEl = useAppStore((state) => state.selectedEl)
 
   const router = useRouter()
   const setSearchParams = (menu: string) => {
@@ -23,27 +45,55 @@ const LeftMenu = () => {
     })
   }
 
+  const isSelectedMenu = (menu: string) => {
+    if (selectedEl) {
+      return null
+    }
+    return menu.toLowerCase() === router.query.m
+  }
+
+  // useEffect(() => {
+  //   if (selectedEl) {
+  //     router.push({
+  //       query: {
+  //         m:
+  //           selectedEl.type === 'shape'
+  //             ? 'elements'
+  //             : selectedEl.type === 'text'
+  //             ? 'text'
+  //             : selectedEl.type === 'image'
+  //             ? 'images'
+  //             : 'settings',
+  //       },
+  //     })
+  //   }
+  // }, [selectedEl])
+
   return (
-    <div className=" w-full py-4 text-white">
-      <div className="-ml-1 flex  flex-col items-center justify-center p-2 px-4">
-        <div
-          onClick={() => {
-            setSearchParams('shapes')
-          }}
-          className=" flex cursor-pointer flex-col items-center justify-center border-sky-700  p-2 text-sm text-gray-50"
-        >
-          <FaShapes className="mb-1 rounded-md border-2 border-gray-500 p-3 text-6xl" />
-          Shapes
-        </div>
-        <div
-          onClick={() => {
-            setSearchParams('text')
-          }}
-          className=" mt-1 flex cursor-pointer flex-col items-center justify-center border-sky-700 text-gray-50"
-        >
-          <MdOutlineTextFields className="mb-1 rounded-md  border-2 border-gray-500 p-3 text-6xl" />
-          Text
-        </div>
+    <div className="h-full w-full bg-primary-mid text-white">
+      <div className=" flex  flex-col items-center justify-center ">
+        {menuItems.map((menu) => {
+          const Icon = menu.icon
+          return (
+            <div
+              key={menu.name}
+              onClick={() => {
+                setSearchParams(menu.name.toLowerCase())
+              }}
+              className={`flex w-full cursor-pointer flex-col items-center justify-center border-l-3   p-3 text-xs font-medium text-slate-400 transition-all duration-300 hover:text-slate-300 ${
+                isSelectedMenu(menu.name)
+                  ? ' border-primary bg-primary bg-opacity-5'
+                  : 'border-primary-mid'
+              } `}
+            >
+              <menu.icon
+                className="
+            mb-1 rounded-md text-2xl"
+              />
+              {menu.name}
+            </div>
+          )
+        })}
       </div>
     </div>
   )

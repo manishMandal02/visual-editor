@@ -1,35 +1,32 @@
 import { nanoid } from 'nanoid'
 import React from 'react'
 import { CIRCLE, RECTANGLE, TYPE_SHAPE } from '../../../../constants'
-import { useProjectBoardStore } from '../../../../store/projectBoard'
-import { useShapeStore } from '../../../../store/shapes'
-import { circle, rectangle } from '../../../../types/canvas.type'
+import { useAppStore } from '../../../../store/index'
+import { Circle, Rectangle } from '../../../../types/canvas.type'
 
 const Shapes = () => {
   //global state - selectEl
-  const setHoveredEl = useProjectBoardStore((state) => state.setHoveredEl)
-
-  // global state - add shapes
-  const addShape = useShapeStore((state) => state.addShape)
+  const setHoveredEl = useAppStore((state) => state.setHoveredEl)
+  const addShape = useAppStore((state) => state.addShape)
 
   const addCircleHandler = () => {
     const id = nanoid()
-    const initialCircleAttr: circle = {
+    const initialCircleAttr: Circle = {
       type: TYPE_SHAPE,
       subType: CIRCLE,
       id,
       x: 130,
       y: 250,
-      radius: 50,
-      fill: { color: '#ffffff', opacity: 0 },
-      border: { color: '#000000', opacity: 100, size: 2 },
+      height: 50,
+      width: 50,
+      style: { fillColor: '#ffffff', strokeColor: '#000000', strokeWidth: 2 },
     }
     addShape(initialCircleAttr)
     setHoveredEl(initialCircleAttr)
   }
   const addRectangleHandler = () => {
     const id = nanoid()
-    const initialRectAttr: rectangle = {
+    const initialRectAttr: Rectangle = {
       type: TYPE_SHAPE,
       subType: RECTANGLE,
       id,
@@ -37,8 +34,7 @@ const Shapes = () => {
       y: 250,
       width: 100,
       height: 50,
-      fill: { color: '#ffffff', opacity: 0 },
-      border: { color: '#000000', opacity: 100, size: 2 },
+      style: { fillColor: '#ffffff', strokeColor: '#000000', strokeWidth: 2 },
     }
     addShape(initialRectAttr)
     setHoveredEl(initialRectAttr)

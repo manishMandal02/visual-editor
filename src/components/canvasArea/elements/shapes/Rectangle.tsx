@@ -2,17 +2,16 @@ import { KonvaEventObject } from 'konva/lib/Node'
 import React, { useEffect, useRef, useState } from 'react'
 import { Rect, Transformer } from 'react-konva'
 //
-import { element, rectangle } from '../../../../types/canvas.type'
-import hexToRGBA from '../../../../utils/common'
+import { Element, Rectangle } from '../../../../types/canvas.type'
 
 interface Props {
-  shapeProps: rectangle
+  shapeProps: Rectangle
   isSelected: boolean
   isHovered: boolean
-  onClick: (el: element) => void
-  onHover: (el: element) => void
+  onClick: (el: Element) => void
+  onHover: (el: Element) => void
   onDrag: (value: { id: string; x: number; y: number }) => void
-  onTransform: (circle: rectangle) => void
+  onTransform: (circle: Rectangle) => void
   onHoverEnd: () => void
 }
 
@@ -43,14 +42,6 @@ const RectangleShape: React.FC<Props> = ({
     }
   }, [isHovered])
 
-  const fillColorWithOpacity = hexToRGBA(
-    shapeProps.fill.color,
-    shapeProps.fill.opacity / 100
-  )
-  const borderColorWithOpacity = hexToRGBA(
-    shapeProps.border.color,
-    shapeProps.border.opacity / 100
-  )
   return (
     <>
       <Rect
@@ -61,9 +52,9 @@ const RectangleShape: React.FC<Props> = ({
         ref={shapeRef}
         x={shapeProps.x}
         y={shapeProps.y}
-        fill={fillColorWithOpacity}
-        stroke={borderColorWithOpacity}
-        strokeWidth={shapeProps.border.size}
+        fill={shapeProps.style.fillColor}
+        stroke={shapeProps.style.strokeColor}
+        strokeWidth={shapeProps.style.strokeWidth}
         width={shapeProps.width}
         height={shapeProps.height}
         draggable

@@ -1,48 +1,33 @@
 import React, { useEffect, useState } from 'react'
-import { useShapeStore } from '../../../../store/shapes'
-import { shape, shapeBorder, shapeFill } from '../../../../types/canvas.type'
+import { useAppStore } from '../../../../store/index'
+import { Shape, ShapeStyle } from '../../../../types/canvas.type'
 
 interface Props {
-  selectedEl: shape
+  selectedEl: Shape
 }
 
 const ShapeOptions: React.FC<Props> = ({ selectedEl }) => {
   // state - shape styles
-  const [shapeFill, setShapeFill] = useState<shapeFill>({
-    color: '#ffffff',
-    opacity: 100,
-  })
-  const [shapeBorder, setShapeBorder] = useState<shapeBorder>({
-    color: '#000000',
-    opacity: 100,
-    size: 2,
+  const [shapeStyle, setShapeStyle] = useState<ShapeStyle>({
+    fillColor: '#ffffff',
+    strokeColor: '#000000',
+    strokeWidth: 2,
   })
 
   useEffect(() => {
-    setShapeFill(selectedEl.fill)
-    setShapeBorder(selectedEl.border)
+    setShapeStyle(selectedEl.style)
   }, [selectedEl])
 
   useEffect(() => {
-    onFillUpdate({
-      id: selectedEl.id,
-      color: shapeFill.color,
-      opacity: shapeFill.opacity,
+    onStyleChange({
+      fillColor: shapeStyle.fillColor,
+      strokeColor: shapeStyle.strokeColor,
+      strokeWidth: shapeStyle.strokeWidth,
     })
-  }, [shapeFill, selectedEl])
+  }, [shapeStyle, selectedEl])
 
-  useEffect(() => {
-    onBorderUpdate({
-      id: selectedEl.id,
-      color: shapeBorder.color,
-      opacity: shapeBorder.opacity,
-      size: shapeBorder.size,
-    })
-  }, [shapeBorder, selectedEl])
   // global state - shape store
-  const onFillUpdate = useShapeStore((state) => state.onFillUpdate)
-
-  const onBorderUpdate = useShapeStore((state) => state.onBorderUpdate)
+  const onStyleChange = useAppStore((state) => state.onStyleChange)
 
   return (
     <div className="p-5 text-gray-100">
@@ -53,27 +38,14 @@ const ShapeOptions: React.FC<Props> = ({ selectedEl }) => {
             <p>Color</p>
             <input
               type="color"
-              value={shapeFill.color}
+              value={shapeStyle.fillColor}
               onChange={(e) => {
-                setShapeFill((state) => ({
+                setShapeStyle((state) => ({
                   ...state,
-                  color: e.target.value,
+                  fillColor: e.target.value,
                 }))
               }}
               className="appearance-none"
-            />
-          </div>
-          <div className="mt-2 flex items-center justify-between p-1">
-            <p>Opacity</p>
-            <input
-              type="range"
-              value={shapeFill.opacity}
-              onChange={(e) => {
-                setShapeFill((state) => ({
-                  ...state,
-                  opacity: Number(e.target.value),
-                }))
-              }}
             />
           </div>
         </div>
@@ -84,27 +56,14 @@ const ShapeOptions: React.FC<Props> = ({ selectedEl }) => {
           <p>Color</p>
           <input
             type="color"
-            value={shapeBorder.color}
+            value={shapeStyle.strokeColor}
             onChange={(e) => {
-              setShapeBorder((state) => ({
+              setShapeStyle((state) => ({
                 ...state,
-                color: e.target.value,
+                strokeColor: e.target.value,
               }))
             }}
             className="appearance-none"
-          />
-        </div>
-        <div className="mt-2 flex items-center justify-between p-1">
-          <p>Opacity</p>
-          <input
-            type="range"
-            value={shapeBorder.opacity}
-            onChange={(e) => {
-              setShapeBorder((state) => ({
-                ...state,
-                opacity: Number(e.target.value),
-              }))
-            }}
           />
         </div>
         <div className="mt-2 flex items-center justify-between p-1">
@@ -113,11 +72,11 @@ const ShapeOptions: React.FC<Props> = ({ selectedEl }) => {
             className=" w-10 text-center text-primary-dark"
             type="number"
             min={0}
-            value={shapeBorder.size}
+            value={shapeStyle.strokeWidth}
             onChange={(e) => {
-              setShapeBorder((state) => ({
+              setShapeStyle((state) => ({
                 ...state,
-                size: Number(e.target.value),
+                strokeWidth: Number(e.target.value),
               }))
             }}
           />
