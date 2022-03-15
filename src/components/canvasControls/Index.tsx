@@ -10,7 +10,7 @@ const CanvasControls = () => {
   return (
     <div
       onClick={(e) => e.stopPropagation()}
-      className="flex h-full bg-primary-dark2 "
+      className="flex h-full bg-primary-dark"
     >
       {/* left menu */}
       <div className="h-full w-1/5 ">

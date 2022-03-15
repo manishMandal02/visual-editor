@@ -6,7 +6,7 @@ const Header = () => {
   // global state
   const setExportToImage = useAppStore((state) => state.setExportToImage)
   return (
-    <div className="flex w-full items-center justify-between py-4 px-6">
+    <div className="flex w-full items-center justify-between py-4 px-6 ">
       <p className="text-gray-200">
         Note: This app is still in the development stage
       </p>

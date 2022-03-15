@@ -70,7 +70,7 @@ const LeftMenu = () => {
   // }, [selectedEl])
 
   return (
-    <div className="h-full w-full bg-primary-mid text-white">
+    <div className="bg-primary-mid h-full w-full border-r-2 border-r-gray-700 border-opacity-50">
       <div className=" flex  flex-col items-center justify-center ">
         {menuItems.map((menu) => {
           const Icon = menu.icon
@@ -80,9 +80,9 @@ const LeftMenu = () => {
               onClick={() => {
                 setSearchParams(menu.name.toLowerCase())
               }}
-              className={`flex w-full cursor-pointer flex-col items-center justify-center border-l-3   p-3 text-xs font-medium text-slate-400 transition-all duration-300 hover:text-slate-300 ${
+              className={`flex w-full cursor-pointer flex-col items-center justify-center border-l-3 border-l-transparent  p-3 text-xs font-medium text-slate-400 transition-all duration-300 hover:text-slate-300 ${
                 isSelectedMenu(menu.name)
-                  ? ' border-primary bg-primary bg-opacity-5'
+                  ? ' border-l-primary bg-primary bg-opacity-5 text-slate-300'
                   : 'border-primary-mid'
               } `}
             >
