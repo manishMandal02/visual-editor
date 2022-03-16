@@ -10,6 +10,8 @@ interface ProjectBoardSlice {
   setSize: (size: ProjectBoardSize) => void
   setPixelRatio: (value: number) => void
   setExportToImage: (value: boolean) => void
+  selectedMenu: string | null
+  setSelectedMenu: (menu: string | null) => void
 }
 
 export const createProjectSlice: StoreSlice<ProjectBoardSlice> = (set) => ({
@@ -29,4 +31,6 @@ export const createProjectSlice: StoreSlice<ProjectBoardSlice> = (set) => ({
 
   setExportToImage: (value) =>
     set((state) => ({ ...state, isExportToImage: value })),
+  selectedMenu: 'settings',
+  setSelectedMenu: (menu) => set((state) => ({ ...state, selectedMenu: menu })),
 })

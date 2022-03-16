@@ -8,8 +8,8 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#1EB3F5',
-          secondary: '#03DAC6',
+          DEFAULT: '#14b8a6',
+          secondary: '#06b6d4',
           dark: '#121212',
           dark2: '#1D1D1D',
           gray: '#BABABA',
@@ -28,8 +28,8 @@ module.exports = {
       },
       height: {
         100: '80rem',
-        '1/12': '10%',
-        '11/12': '90%',
+        '1/12': '7%',
+        '11/12': '93%',
       },
       spacing: {
         18: '12%',

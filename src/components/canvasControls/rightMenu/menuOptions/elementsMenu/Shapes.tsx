@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid'
 import React from 'react'
-import { CIRCLE, RECTANGLE, TYPE_SHAPE } from '../../../../constants'
-import { useAppStore } from '../../../../store/index'
-import { Circle, Rectangle } from '../../../../types/canvas.type'
+import { CIRCLE, RECTANGLE, TYPE_SHAPE } from '../../../../../constants'
+import { useAppStore } from '../../../../../store/index'
+import { Circle, Rectangle } from '../../../../../types/canvas.type'
 
 const Shapes = () => {
   //global state - selectEl

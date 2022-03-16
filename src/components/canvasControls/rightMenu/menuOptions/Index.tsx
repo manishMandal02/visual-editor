@@ -1,20 +1,30 @@
 import { useRouter } from 'next/router'
 import React from 'react'
-import ShapesMenu from './ShapesMenu'
+import { useAppStore } from '../../../../store'
+import ElementsMenu from './elementsMenu/Index'
+import ShapesMenu from './elementsMenu/Shapes'
+import ImagesMenu from './ImagesMenu'
+import SettingsMenu from './settingsMenu/Index'
+import TemplateMenu from './templateMenu/Index'
 import TextMenu from './TextMenu'
 
 const MenuOptions = () => {
-  // url query
-  const router = useRouter()
-  const query = router.query
+  // global state - selected menu
+  const selectedMenu = useAppStore((state) => state.selectedMenu)
   return (
-    <div className="mt-2 p-3">
-      {query?.m === 'shapes' ? (
-        <ShapesMenu />
-      ) : query?.m === 'text' ? (
+    <div className="">
+      {selectedMenu === 'elements' ? (
+        <ElementsMenu />
+      ) : selectedMenu === 'templates' ? (
+        <TemplateMenu />
+      ) : selectedMenu === 'text' ? (
         <TextMenu />
+      ) : selectedMenu === 'images' ? (
+        <ImagesMenu />
+      ) : selectedMenu === 'settings' ? (
+        <SettingsMenu />
       ) : (
-        <ShapesMenu />
+        <p className="text-gray-300">{selectedMenu}</p>
       )}
     </div>
   )
