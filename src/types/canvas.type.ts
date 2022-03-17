@@ -65,12 +65,14 @@ interface TextStyle {
   color: string
   opacity: number
   fontSize: number
-  fontFamily: string
+  font: string
   align: TextAlign
+  alignVertical: TextAlignVertical
   lineHeight: number
 }
 
 type TextAlign = 'left' | 'center' | 'right'
+type TextAlignVertical = 'top' | 'middle' | 'bottom'
 
 // element - image
 type Image = {
@@ -90,6 +92,7 @@ export type {
   Text,
   TextStyle,
   TextAlign,
+  TextAlignVertical,
   Element,
   ShapeStyle,
   Rectangle,

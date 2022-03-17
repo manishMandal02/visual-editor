@@ -11,6 +11,7 @@ interface Props {
 
 const RightMenuHeader: React.FC<Props> = ({ menu, subMenu, onMenuClicked }) => {
   const setSelectedMenu = useAppStore((state) => state.setSelectedMenu)
+  const setSelectedElNull = useAppStore((state) => state.setSelectedElNull)
   return (
     <div className="flex w-full items-center justify-between border-b-2 border-gray-800 px-2 py-2 ">
       <p className="m-0 cursor-pointer text-xl font-medium tracking-wide text-slate-200 ">
@@ -26,6 +27,7 @@ const RightMenuHeader: React.FC<Props> = ({ menu, subMenu, onMenuClicked }) => {
       <div
         onClick={() => {
           setSelectedMenu(null)
+          setSelectedElNull()
         }}
         className="to-primary-second flex cursor-pointer items-center justify-center rounded-full bg-gradient-to-tr from-primary-secondary p-2  py-3 "
       >

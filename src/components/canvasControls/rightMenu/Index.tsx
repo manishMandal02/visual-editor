@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAppStore } from '../../../store/index'
 import MenuOptions from './menuOptions/Index'
 import SelectedElOptions from './selectedElOptions/Index'
@@ -8,10 +8,20 @@ const RightMenu = () => {
   const selectedEl = useAppStore((state) => state.selectedEl)
   const selectedMenu = useAppStore((state) => state.selectedMenu)
 
+  const [showMenu, setShowMenu] = useState(true)
+
+  useEffect(() => {
+    if (selectedMenu || selectedEl) {
+      setShowMenu(true)
+    } else {
+      setShowMenu(false)
+    }
+  }, [selectedEl, selectedMenu])
+
   return (
     <div
       className={`h-full  bg-primary-dark transition-all duration-200 ${
-        selectedMenu ? 'block w-4/5' : ' hidden'
+        showMenu ? 'block w-4/5' : ' hidden'
       }`}
     >
       {selectedEl ? (

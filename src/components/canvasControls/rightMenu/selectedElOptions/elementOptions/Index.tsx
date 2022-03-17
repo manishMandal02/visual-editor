@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useAppStore } from '../../../../store/index'
-import { Shape, ShapeStyle } from '../../../../types/canvas.type'
+import { useAppStore } from '../../../../../store/index'
+import { Shape, ShapeStyle } from '../../../../../types/canvas.type'
+import RightMenuHeader from '../../../../ui/RightMenuHeader'
 
 interface Props {
   selectedEl: Shape
 }
 
-const ShapeOptions: React.FC<Props> = ({ selectedEl }) => {
+const ElementOptions: React.FC<Props> = ({ selectedEl }) => {
   // state - shape styles
   const [shapeStyle, setShapeStyle] = useState<ShapeStyle>({
     fillColor: '#ffffff',
@@ -30,7 +31,10 @@ const ShapeOptions: React.FC<Props> = ({ selectedEl }) => {
   const onStyleChange = useAppStore((state) => state.onStyleChange)
 
   return (
-    <div className="p-5 text-gray-100">
+    <>
+      {/* TODO: update menu name to sub type */}
+      <RightMenuHeader menu={`Edit Element`} />
+
       <div>
         <p className="mb-1 ml-2 tracking-wide">Fill</p>
         <div className=" rounded-md border border-slate-600 p-2">
@@ -82,8 +86,8 @@ const ShapeOptions: React.FC<Props> = ({ selectedEl }) => {
           />
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
-export default ShapeOptions
+export default ElementOptions

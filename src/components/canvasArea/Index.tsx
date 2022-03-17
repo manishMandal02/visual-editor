@@ -47,6 +47,7 @@ const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
       if (e.code === 'Delete') {
         if (selectedEl) {
           removeElement(selectedEl.id)
+          setSelectedElNull()
         }
       }
     }

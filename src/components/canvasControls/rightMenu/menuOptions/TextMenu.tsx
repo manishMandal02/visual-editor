@@ -24,7 +24,7 @@ const TextMenu = () => {
         color: '#000000',
         opacity: 100,
         align: 'center',
-        fontFamily: 'Poppins',
+        font: 'Poppins',
         fontSize: 20,
         lineHeight: 1,
       },

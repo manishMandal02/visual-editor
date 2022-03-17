@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/canvasArea/elements/shapes/Circle.tsx", "src/utils/common.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/canvasArea/elements/shapes/Circle.tsx", "src/utils/common.ts", "src/components/ui/FontSelector.tsx", "src/components/ui/colorPicker/CustomColorPicker.tsx"],
   "exclude": ["node_modules"]
 }

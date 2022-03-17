@@ -12,7 +12,7 @@ module.exports = {
           secondary: '#06b6d4',
           dark: '#121212',
           dark2: '#1D1D1D',
-          gray: '#BABABA',
+          gray: '#f3f4f6',
         },
       },
       borderWidth: {
@@ -36,6 +36,9 @@ module.exports = {
       },
       screens: {
         ms: { max: '850px' },
+      },
+      scale: {
+        135: '1.35',
       },
     },
   },

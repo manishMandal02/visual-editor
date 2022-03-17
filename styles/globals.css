@@ -25,3 +25,9 @@ body {
   background-color: #b3b3b3;
   outline: 1px solid rgb(86, 89, 92);
 }
+
+/* Always show up/down arrow on input type number */
+
+.showArrowCC::-webkit-inner-spin-button {
+  opacity: 1;
+}

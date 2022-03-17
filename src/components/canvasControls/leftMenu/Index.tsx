@@ -38,6 +38,8 @@ const LeftMenu = () => {
   const selectedEl = useAppStore((state) => state.selectedEl)
 
   const setMenu = (menu: string) => {
+    setSelectedElNull()
+    setHoveredElNull()
     setSelectedMenu(menu)
   }
 
