@@ -27,6 +27,7 @@ const TextMenu = () => {
         font: 'Poppins',
         fontSize: 20,
         lineHeight: 1,
+        alignVertical: 'middle',
       },
     }
     addText(initialRectAttr)
