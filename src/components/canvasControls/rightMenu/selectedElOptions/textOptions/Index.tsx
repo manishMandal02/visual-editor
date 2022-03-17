@@ -155,16 +155,30 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
             onChange={setTextAlignVertical}
           />
         </div>
-        <div className="mt-1 w-full items-center justify-between p-1">
+        <div className="mt-2 flex w-full flex-col  items-start justify-center p-1">
           <p>Opacity</p>
-          <input
-            type="range"
-            value={opacity}
-            onChange={(e) => {
-              setOpacity(Number(e.target.value))
-            }}
-            className="w-full"
-          />
+          <div className="flex w-full items-center px-2">
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={opacity}
+              onChange={(e) => {
+                setOpacity(Number(e.target.value))
+              }}
+              className="rangeSlideCC h-2 w-full rounded bg-slate-200 opacity-90 outline-none hover:opacity-100"
+            />
+            <div className="ml-3 w-12">
+              <input
+                type="number"
+                value={opacity}
+                onChange={(e) => {
+                  setOpacity(Number(e.target.value))
+                }}
+                className="showArrowCC max-w-full rounded py-1 px-1.5 text-sm text-black outline-none"
+              />
+            </div>
+          </div>
         </div>
       </div>
       {/* <div className="p-4 text-gray-200">
