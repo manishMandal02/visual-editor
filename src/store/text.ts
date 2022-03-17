@@ -30,7 +30,7 @@ export const createTextSlice: StoreSlice<TextSliceType, ElementsSlice> = (
     color,
     opacity,
     fontSize,
-    fontFamily,
+    font,
     align,
     lineHeight,
   }) =>
@@ -42,7 +42,7 @@ export const createTextSlice: StoreSlice<TextSliceType, ElementsSlice> = (
           text!.style.opacity = opacity
           text!.style.align = align
           text!.style.fontSize = fontSize
-          text!.style.fontFamily = fontFamily
+          text!.style.font = font
           text!.style.lineHeight = lineHeight
         }
       })
