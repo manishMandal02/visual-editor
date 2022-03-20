@@ -89,7 +89,7 @@ type TextSpacing = {
 }
 
 type TextShadow = {
-  is
+  isApplied: boolean
   blur: number
   opacity: number
   offSetX: number
