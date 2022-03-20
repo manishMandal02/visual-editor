@@ -52,6 +52,7 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
   const [isUnderline, setIsUnderline] = useState(false)
   const [isLineThrough, setIsLineThrough] = useState(false)
   const [stroke, setStroke] = useState<TextStrokeType>({
+    isApplied: false,
     color: '',
     size: 0,
   })
@@ -68,6 +69,7 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
     offSetX: 0,
     offSetY: 0,
     opacity: 0,
+    isApplied: false,
   })
 
   useEffect(() => {
@@ -118,6 +120,10 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
   ])
 
   useEffect(() => {
+    onShadowUpdate(shadow)
+  }, [shadow, selectedEl])
+
+  useEffect(() => {
     onTextUpdate(selectedEl.id, text)
   }, [text, selectedEl])
 
@@ -125,6 +131,7 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
   const onTextPropertiesUpdate = useAppStore(
     (state) => state.onTextPropertiesUpdate
   )
+  const onShadowUpdate = useAppStore((state) => state.onTextShadow)
   const onTextUpdate = useAppStore((state) => state.onTextUpdate)
 
   return (

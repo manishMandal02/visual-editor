@@ -18,7 +18,9 @@ const SwitchWithOptions: React.FC<Props> = ({
     <>
       <div className="mt-2 w-full py-1 px-2 shadow-sm shadow-slate-700">
         <div className="flex items-center justify-between p-1 px-2 ">
-          <p className="tracking-wide text-primary-gray ">{label}</p>
+          <p className="select-none tracking-wide text-primary-gray ">
+            {label}
+          </p>
           <Switch value={isSwitchOn} onChange={() => onChange(!isSwitchOn)} />
         </div>
         {isSwitchOn && (

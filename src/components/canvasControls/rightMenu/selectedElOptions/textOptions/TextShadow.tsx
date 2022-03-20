@@ -1,11 +1,8 @@
-import { nanoid } from 'nanoid'
 import React, { useEffect, useState } from 'react'
 import { TextShadow as TextShadowType } from '../../../../../types/canvas.type'
-import Accordion from '../../../../ui/Accordion'
 import ColorPicker from '../../../../ui/colorPicker/Index'
 import RangeSlider from '../../../../ui/RangeSlider'
 //
-import Switch from '../../../../ui/Switch'
 import SwitchWithOptions from '../../../../ui/SwitchWithOptions'
 
 interface Props {
@@ -14,46 +11,51 @@ interface Props {
 }
 
 const TextShadow: React.FC<Props> = ({ value, onChange }) => {
-  const [isStrokeApplied, setIsStrokeApplied] = useState(false)
+  const { blur, offSetX, offSetY, opacity, color, isApplied } = value
 
-  const { blur, offSetX, offSetY, opacity, color } = value
-
-  useEffect(() => {
-    if (size > 0) {
-      setIsStrokeApplied(true)
-    } else {
-      setIsStrokeApplied(false)
-    }
-  }, [size])
   return (
     <div className="px-2 ">
       <SwitchWithOptions
         label="Shadow"
-        isSwitchOn={isStrokeApplied}
-        onChange={setIsStrokeApplied}
+        isSwitchOn={isApplied}
+        onChange={(boolean) => onChange({ ...value, isApplied: boolean })}
       >
-        <RangeSlider id={nanoid()} label="Blur" value={0} onChange={() => {}} />
         <RangeSlider
-          id={nanoid()}
+          label="Blur"
+          value={blur}
+          onChange={(newProp) => {
+            onChange({ ...value, blur: newProp })
+          }}
+        />
+        <RangeSlider
           label="Opacity"
-          value={0}
-          onChange={() => {}}
+          value={opacity}
+          onChange={(newProp) => {
+            onChange({ ...value, opacity: newProp })
+          }}
         />
         <RangeSlider
-          id={nanoid()}
           label="OffSet X"
-          value={0}
-          onChange={() => {}}
+          value={offSetX}
+          onChange={(newProp) => {
+            onChange({ ...value, offSetX: newProp })
+          }}
         />
         <RangeSlider
-          id={nanoid()}
           label="OffSet Y"
-          value={0}
-          onChange={() => {}}
+          value={offSetY}
+          onChange={(newProp) => {
+            onChange({ ...value, offSetY: newProp })
+          }}
         />
         <div className="flex select-none items-center justify-between px-4 py-1">
           Color
-          <ColorPicker selected="#000000" onChange={() => {}} />
+          <ColorPicker
+            selected={color}
+            onChange={(newColor) => {
+              onChange({ ...value, color: newColor })
+            }}
+          />
         </div>
       </SwitchWithOptions>
     </div>

@@ -80,6 +80,7 @@ interface TextStyle {
 type TextAlign = 'left' | 'center' | 'right'
 type TextAlignVertical = 'top' | 'middle' | 'bottom'
 type TextStroke = {
+  isApplied: boolean
   size: number
   color: string
 }

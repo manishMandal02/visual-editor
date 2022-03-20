@@ -18,7 +18,7 @@ const Accordion: React.FC<Props> = ({ children, label }) => {
         }  p-1.5 py-2 `}
         onClick={() => setOpen(!open)}
       >
-        <p className="text-sm text-primary-gray ">{label}</p>
+        <p className="select-none text-sm text-primary-gray">{label}</p>
         <span
           className={`scale-125 font-medium transition-all duration-300   ${
             !open && 'rotate-180'

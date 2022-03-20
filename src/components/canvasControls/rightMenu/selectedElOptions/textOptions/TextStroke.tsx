@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid'
 import React from 'react'
 import { TextStroke as TextStrokeType } from '../../../../../types/canvas.type'
 import ColorPicker from '../../../../ui/colorPicker/Index'
@@ -11,19 +10,29 @@ interface Props {
 }
 
 const TextStroke: React.FC<Props> = ({ value, onChange }) => {
-  const { color, size } = value
+  const { color, size, isApplied } = value
   return (
     <div className="px-2">
-      <SwitchWithOptions label="Stroke" isSwitchOn={!!size} onChange={() => {}}>
+      <SwitchWithOptions
+        label="Stroke"
+        isSwitchOn={isApplied}
+        onChange={(value) => {
+          onChange({ color, size, isApplied: value })
+        }}
+      >
         <RangeSlider
-          id={nanoid()}
           label="Curved Amount"
           value={size}
-          onChange={(value) => onChange({ size: value, color })}
+          onChange={(value) => onChange({ size: value, color, isApplied })}
         />
         <div className="flex select-none items-center justify-between px-4 py-1">
           Color
-          <ColorPicker selected={color} onChange={() => {}} />
+          <ColorPicker
+            selected={color}
+            onChange={(color) => {
+              onChange({ size, color: color, isApplied })
+            }}
+          />
         </div>
       </SwitchWithOptions>
     </div>

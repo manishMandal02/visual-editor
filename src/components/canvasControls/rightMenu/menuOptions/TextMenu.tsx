@@ -26,8 +26,21 @@ const TextMenu = () => {
         align: 'center',
         font: 'Poppins',
         fontSize: 20,
-        lineHeight: 1,
+        isBold: false,
+        isItalic: false,
+        isUnderline: false,
+        isLineThrough: false,
+        stroke: { isApplied: false, color: '#000000', size: 2 },
+        spacing: { letter: 0, line: 1 },
         alignVertical: 'middle',
+      },
+      shadow: {
+        isApplied: false,
+        blur: 2,
+        color: '#000000',
+        offSetX: 10,
+        offSetY: 10,
+        opacity: 50,
       },
     }
     addText(initialRectAttr)

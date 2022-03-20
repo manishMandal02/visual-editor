@@ -47,11 +47,23 @@ const TextElement: React.FC<Props> = ({
   }, [isHovered])
 
   const textProps = { ...shapeProps.style }
+  const textShadow = { ...shapeProps.shadow }
 
   const fillColorWithOpacity = hexToRGBA(
     textProps.color,
     textProps.opacity / 100
   )
+
+  // font style
+  const fontStyle = textProps.isBold
+    ? 'bold'
+    : textProps.isItalic
+    ? 'italic'
+    : textProps.isBold && textProps.isItalic
+    ? 'italic bold'
+    : ''
+
+  console.log(textShadow)
 
   return (
     <>
@@ -66,10 +78,28 @@ const TextElement: React.FC<Props> = ({
         text={shapeProps.text}
         fontSize={textProps.fontSize}
         fontFamily={textProps.font}
+        fontStyle={fontStyle}
+        textDecoration={
+          textProps.isUnderline
+            ? 'underline'
+            : textProps.isLineThrough
+            ? 'line-through'
+            : ''
+        }
+        strokeEnabled={textProps.stroke.isApplied}
+        stroke={textProps.stroke.color}
+        strokeWidth={textProps.stroke.size}
         align={textProps.align}
-        verticalAlign={'middle'}
-        lineHeight={textProps.lineHeight}
+        verticalAlign={textProps.alignVertical}
+        lineHeight={textProps.spacing.line}
+        letterSpacing={textProps.spacing.letter}
         fill={fillColorWithOpacity}
+        // shadow props
+        shadowEnabled={textShadow.isApplied}
+        shadowColor={textShadow.color}
+        shadowBlur={textShadow.blur}
+        shadowOffsetX={textShadow.offSetX}
+        shadowOffsetY={textShadow.offSetY}
         width={shapeProps.width}
         height={shapeProps.height}
         draggable
