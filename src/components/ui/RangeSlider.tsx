@@ -11,7 +11,9 @@ const RangeSlider: React.FC<Props> = ({ value, label, onChange, id }) => {
   return (
     <div key={id}>
       <div className="mt-2 flex w-full flex-col  items-start justify-center p-1 px-2">
-        <p className="ml-2 -mb-1  text-sm text-primary-gray">{label}</p>
+        <p className="ml-2 -mb-1  select-none text-sm text-primary-gray">
+          {label}
+        </p>
         <div className="flex w-full items-center rounded   py-2 px-2 shadow-sm shadow-slate-700">
           <input
             type="range"
@@ -37,7 +39,7 @@ const RangeSlider: React.FC<Props> = ({ value, label, onChange, id }) => {
               }}
               className="hideArrowCC w-10  rounded bg-slate-100 py-px px-px pl-1 text-left text-sm text-black outline-none"
             />
-            <span className="absolute right-1 text-xs">%</span>
+            <span className="absolute right-1 select-none text-xs">%</span>
           </div>
         </div>
       </div>

@@ -60,15 +60,21 @@ interface Text {
   width: number
   height: number
   style: TextStyle
+  shadow: TextShadow
 }
 interface TextStyle {
   color: string
   opacity: number
   fontSize: number
   font: string
+  isBold: boolean
+  isItalic: boolean
+  isUnderline: boolean
+  isLineThrough: boolean
   align: TextAlign
   alignVertical: TextAlignVertical
-  lineHeight: number
+  stroke: TextStroke
+  spacing: TextSpacing
 }
 
 type TextAlign = 'left' | 'center' | 'right'
@@ -81,6 +87,17 @@ type TextSpacing = {
   letter: number
   line: number
 }
+
+type TextShadow = {
+  is
+  blur: number
+  opacity: number
+  offSetX: number
+  offSetY: number
+  color: string
+}
+
+//
 // element - image
 type Image = {
   id: string
@@ -101,6 +118,7 @@ export type {
   TextSpacing,
   TextStroke,
   TextAlign,
+  TextShadow,
   TextAlignVertical,
   Element,
   ShapeStyle,

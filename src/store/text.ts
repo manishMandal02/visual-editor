@@ -1,7 +1,7 @@
 import create, { SetState, GetState, StoreApi, StateCreator } from 'zustand'
 // import { devtools } from 'zustand/middleware'
 import produce from 'immer'
-import { TextStyle, Text } from '../types/canvas.type'
+import { TextStyle, Text, TextShadow } from '../types/canvas.type'
 import { ElementsSlice, StoreSlice } from '../types/store.types'
 import { TYPE_TEXT } from '../constants'
 
@@ -9,6 +9,7 @@ interface TextSliceType {
   addText: (text: Text) => void
   onTextUpdate: (id: string, text: string) => void
   onTextPropertiesUpdate: (style: TextStyle) => void
+  onTextShadow: (style: TextShadow) => void
 }
 
 export const createTextSlice: StoreSlice<TextSliceType, ElementsSlice> = (
@@ -30,9 +31,15 @@ export const createTextSlice: StoreSlice<TextSliceType, ElementsSlice> = (
     color,
     opacity,
     fontSize,
-    fontFamily,
+    font,
+    isBold,
+    isItalic,
+    isUnderline,
+    isLineThrough,
     align,
-    lineHeight,
+    alignVertical,
+    stroke,
+    spacing,
   }) =>
     set(
       produce((draft: ElementsSlice) => {
@@ -42,8 +49,24 @@ export const createTextSlice: StoreSlice<TextSliceType, ElementsSlice> = (
           text!.style.opacity = opacity
           text!.style.align = align
           text!.style.fontSize = fontSize
-          text!.style.fontFamily = fontFamily
-          text!.style.lineHeight = lineHeight
+          text!.style.font = font
+          text!.style.isBold = isBold
+          text!.style.isItalic = isItalic
+          text!.style.isUnderline = isUnderline
+          text!.style.isLineThrough = isLineThrough
+          text!.style.align = align
+          text!.style.alignVertical = alignVertical
+          text!.style.stroke = stroke
+          text!.style.spacing = spacing
+        }
+      })
+    ),
+  onTextShadow: (shadow) =>
+    set(
+      produce((draft: ElementsSlice) => {
+        const text = draft.elements.find((t) => t.id === get().selectedEl?.id)
+        if (text?.type === TYPE_TEXT) {
+          text!.shadow = shadow
         }
       })
     ),

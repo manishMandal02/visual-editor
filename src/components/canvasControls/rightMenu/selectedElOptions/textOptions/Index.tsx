@@ -4,6 +4,9 @@ import {
   Text,
   TextAlign,
   TextAlignVertical,
+  TextShadow as TextShadowType,
+  TextSpacing as TextSpacingType,
+  TextStroke as TextStrokeType,
 } from '../../../../../types/canvas.type'
 import ColorPicker from '../../../../ui/colorPicker/Index'
 import FontSelector from '../../../../ui/FontSelector'
@@ -43,10 +46,29 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
   const [opacity, setOpacity] = useState<number>(100)
   const [fontSize, setFontSize] = useState<number>(20)
   const [font, setFont] = useState<string>('')
+
+  const [isBold, setIsBold] = useState(false)
+  const [isItalic, setIsItalic] = useState(false)
+  const [isUnderline, setIsUnderline] = useState(false)
+  const [isLineThrough, setIsLineThrough] = useState(false)
+  const [stroke, setStroke] = useState<TextStrokeType>({
+    color: '',
+    size: 0,
+  })
+  const [spacing, setSpacing] = useState<TextSpacingType>({
+    letter: 1,
+    line: 1,
+  })
   const [textAlign, setTextAlign] = useState<TextAlign>('center')
   const [textAlignVertical, setTextAlignVertical] =
     useState<TextAlignVertical>('middle')
-  const [lineHeight, setLineHeight] = useState<number>(1)
+  const [shadow, setShadow] = useState<TextShadowType>({
+    blur: 0,
+    color: '',
+    offSetX: 0,
+    offSetY: 0,
+    opacity: 0,
+  })
 
   useEffect(() => {
     setText(selectedEl.text)
@@ -55,7 +77,13 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
     setFontSize(selectedEl.style.fontSize)
     setFont(selectedEl.style.font)
     setTextAlign(selectedEl.style.align)
-    setLineHeight(selectedEl.style.lineHeight)
+    setIsBold(selectedEl.style.isBold)
+    setIsItalic(selectedEl.style.isItalic)
+    setIsUnderline(selectedEl.style.isUnderline)
+    setIsLineThrough(selectedEl.style.isLineThrough)
+    setStroke(selectedEl.style.stroke)
+    setSpacing(selectedEl.style.spacing)
+    setShadow(selectedEl.shadow)
   }, [selectedEl])
 
   useEffect(() => {
@@ -66,9 +94,28 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
       opacity,
       font,
       fontSize,
-      lineHeight,
+      isBold,
+      isItalic,
+      isUnderline,
+      isLineThrough,
+      stroke,
+      spacing,
     })
-  }, [textColor, textAlign, opacity, font, fontSize, lineHeight, selectedEl])
+  }, [
+    textColor,
+    textAlign,
+    opacity,
+    font,
+    fontSize,
+    isBold,
+    isItalic,
+    isUnderline,
+    isLineThrough,
+    stroke,
+    spacing,
+    textAlignVertical,
+    selectedEl,
+  ])
 
   useEffect(() => {
     onTextUpdate(selectedEl.id, text)
@@ -116,10 +163,10 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
           <div className="flex  rounded-md   py-1.5  px-2 shadow-sm shadow-slate-700  ">
             <span
               className={`cursor-pointer rounded-md   p-1 text-2xl transition-all duration-150 
+              ${isLineThrough && 'bg-slate-200 text-black'}
               `}
-              // ${'bg-slate-200 text-black'}
               onClick={() => {
-                // onChange('left')
+                setIsLineThrough(!isLineThrough)
               }}
             >
               <AiOutlineStrikethrough className=" scale-135 cursor-pointer rounded-md p-1 text-2xl transition-all duration-150" />
@@ -132,25 +179,31 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
         <div className=" mt-1 flex w-full items-center justify-between p-1 px-3">
           <div className="flex  rounded-md   py-1.5  px-2.5 shadow-sm shadow-slate-700  ">
             <span
-              className={`cursor-pointer rounded-md   p-1 text-2xl transition-all duration-150 ${'bg-slate-200 text-black'}`}
+              className={`cursor-pointer rounded-md   p-1 text-2xl transition-all duration-150 ${
+                isBold && 'bg-slate-200 text-black'
+              }`}
               onClick={() => {
-                // onChange('left')
+                setIsBold(!isBold)
               }}
             >
               <AiOutlineBold />
             </span>
             <span
-              className={`ml-2.5 cursor-pointer rounded-md   p-1 text-2xl transition-all duration-150 ${'bg-slate-200 text-black'}`}
+              className={`ml-2.5 cursor-pointer rounded-md   p-1 text-2xl transition-all duration-150 ${
+                isItalic && 'bg-slate-200 text-black'
+              }`}
               onClick={() => {
-                // onChange('left')
+                setIsItalic(!isItalic)
               }}
             >
               <AiOutlineItalic />
             </span>
             <span
-              className={`ml-2.5 cursor-pointer rounded-md   p-1 text-2xl transition-all duration-150 ${'bg-slate-200 text-black'}`}
+              className={`ml-2.5 cursor-pointer rounded-md   p-1 text-2xl transition-all duration-150 ${
+                isUnderline && 'bg-slate-200 text-black'
+              }`}
               onClick={() => {
-                // onChange('left')
+                setIsUnderline(!isUnderline)
               }}
             >
               <AiOutlineUnderline />
@@ -163,7 +216,7 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
           />
         </div>
         <>
-          <TextSpacing onChange={() => {}} spacing={{ line: 10, letter: 20 }} />
+          <TextSpacing onChange={setSpacing} spacing={spacing} />
         </>
         <>
           <RangeSlider
@@ -174,20 +227,14 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
           />
         </>
         <>
-          <TextStroke
-            onChange={() => {}}
-            value={{ color: '#00000', size: 0 }}
-          />
+          <TextStroke onChange={setStroke} value={stroke} />
         </>
         <>
-          <TextShadow
-            value={{ size: 0, color: '#14b8a6' }}
-            onChange={() => {}}
-          />
+          <TextShadow value={shadow} onChange={setShadow} />
         </>
-        <>
+        {/* <>
           <CurvedText value={0} onChange={() => {}} />
-        </>
+        </> */}
       </div>
     </>
   )

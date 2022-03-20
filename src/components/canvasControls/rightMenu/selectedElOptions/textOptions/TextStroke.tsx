@@ -14,11 +14,7 @@ const TextStroke: React.FC<Props> = ({ value, onChange }) => {
   const { color, size } = value
   return (
     <div className="px-2">
-      <SwitchWithOptions
-        label="Curved Text"
-        isSwitchOn={!!size}
-        onChange={() => {}}
-      >
+      <SwitchWithOptions label="Stroke" isSwitchOn={!!size} onChange={() => {}}>
         <RangeSlider
           id={nanoid()}
           label="Curved Amount"

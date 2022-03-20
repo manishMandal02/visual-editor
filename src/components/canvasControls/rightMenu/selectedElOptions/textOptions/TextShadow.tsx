@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid'
 import React, { useEffect, useState } from 'react'
-import { TextStroke as TextStrokeType } from '../../../../../types/canvas.type'
+import { TextShadow as TextShadowType } from '../../../../../types/canvas.type'
 import Accordion from '../../../../ui/Accordion'
 import ColorPicker from '../../../../ui/colorPicker/Index'
 import RangeSlider from '../../../../ui/RangeSlider'
@@ -9,14 +9,14 @@ import Switch from '../../../../ui/Switch'
 import SwitchWithOptions from '../../../../ui/SwitchWithOptions'
 
 interface Props {
-  value: TextStrokeType
-  onChange: (value: TextStrokeType) => void
+  value: TextShadowType
+  onChange: (value: TextShadowType) => void
 }
 
 const TextShadow: React.FC<Props> = ({ value, onChange }) => {
   const [isStrokeApplied, setIsStrokeApplied] = useState(false)
 
-  const { size, color } = value
+  const { blur, offSetX, offSetY, opacity, color } = value
 
   useEffect(() => {
     if (size > 0) {
@@ -41,13 +41,13 @@ const TextShadow: React.FC<Props> = ({ value, onChange }) => {
         />
         <RangeSlider
           id={nanoid()}
-          label="Offset X"
+          label="OffSet X"
           value={0}
           onChange={() => {}}
         />
         <RangeSlider
           id={nanoid()}
-          label="Offset Y"
+          label="OffSet Y"
           value={0}
           onChange={() => {}}
         />
