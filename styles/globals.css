@@ -31,26 +31,27 @@ body {
 .showArrowCC::-webkit-inner-spin-button {
   opacity: 1;
 }
+.hideArrowCC::-webkit-inner-spin-button {
+  opacity: 0;
+  display: none;
+}
 
 .rangeSlideCC {
   -webkit-appearance: none;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.15s;
 }
 
 .rangeSlideCC::-webkit-slider-thumb {
   -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  background: #04aa6d;
+  background: #14b8a6;
   cursor: pointer;
 }
 
 .rangeSlideCC::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  background: #04aa6d;
+  width: 15px;
+  height: 15px;
+  background: #06b6d4;
   cursor: pointer;
 }

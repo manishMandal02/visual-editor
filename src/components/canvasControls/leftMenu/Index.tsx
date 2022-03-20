@@ -68,7 +68,7 @@ const LeftMenu = () => {
   // }, [selectedEl])
 
   return (
-    <div className="bg-primary-mid h-full w-1/5 border-r-2 border-r-gray-800 bg-primary-dark">
+    <div className="bg-primary-mid h-full w-18 border-r-2 border-r-gray-800 bg-primary-dark">
       <div className=" flex  flex-col items-center justify-center ">
         {menuItems.map((menu) => {
           const Icon = menu.icon

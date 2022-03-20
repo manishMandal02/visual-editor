@@ -50,4 +50,4 @@ const TextAlignBtn: React.FC<Props> = ({ selected, onChange }) => {
   )
 }
 
-export default TextAlignBtn
+export default React.memo(TextAlignBtn)

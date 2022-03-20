@@ -20,8 +20,8 @@ const RightMenu = () => {
 
   return (
     <div
-      className={`h-full  bg-primary-dark transition-all duration-200 ${
-        showMenu ? 'block w-4/5' : ' hidden'
+      className={`overflow-hidden overflow-y-auto  bg-primary-dark transition-all duration-200 ${
+        showMenu ? 'block w-11/12' : ' hidden'
       }`}
     >
       {selectedEl ? (

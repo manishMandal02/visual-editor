@@ -50,4 +50,4 @@ const TextVerticalAlign: React.FC<Props> = ({ selected, onChange }) => {
   )
 }
 
-export default TextVerticalAlign
+export default React.memo(TextVerticalAlign)

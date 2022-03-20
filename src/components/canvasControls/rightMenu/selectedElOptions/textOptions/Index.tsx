@@ -18,6 +18,12 @@ import {
 } from 'react-icons/ai'
 import { CgFontHeight, CgFontSpacing } from 'react-icons/cg'
 import TextVerticalAlign from './TextVerticalAlign'
+import RangeSlider from '../../../../ui/RangeSlider'
+import { nanoid } from 'nanoid'
+import TextSpacing from './TextSpacing'
+import TextShadow from './TextShadow'
+import CurvedText from './CurvedText'
+import TextStroke from './TextStroke'
 
 interface Props {
   selectedEl: Text
@@ -77,7 +83,7 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
   return (
     <>
       <RightMenuHeader menu="Edit Text" />
-      <div className="text-primary-gray">
+      <div className=" overflow-y-auto text-primary-gray">
         <div className=" flex  flex-col rounded-md p-2 px-3">
           <p className="mb-1 ml-1 font-medium tracking-wide">Text</p>
           <textarea
@@ -96,6 +102,7 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
           <div className="ml-1 w-3/12">
             <input
               type="number"
+              min={1}
               value={fontSize}
               onChange={(e) => {
                 setFontSize(Number(e.target.value))
@@ -155,58 +162,33 @@ const TextOptions: React.FC<Props> = ({ selectedEl }) => {
             onChange={setTextAlignVertical}
           />
         </div>
-        <div className="mt-2 flex w-full flex-col  items-start justify-center p-1">
-          <p>Opacity</p>
-          <div className="flex w-full items-center px-2">
-            <input
-              type="range"
-              min={0}
-              max={100}
-              value={opacity}
-              onChange={(e) => {
-                setOpacity(Number(e.target.value))
-              }}
-              className="rangeSlideCC h-2 w-full rounded bg-slate-200 opacity-90 outline-none hover:opacity-100"
-            />
-            <div className="ml-3 w-12">
-              <input
-                type="number"
-                value={opacity}
-                onChange={(e) => {
-                  setOpacity(Number(e.target.value))
-                }}
-                className="showArrowCC max-w-full rounded py-1 px-1.5 text-sm text-black outline-none"
-              />
-            </div>
-          </div>
-        </div>
+        <>
+          <TextSpacing onChange={() => {}} spacing={{ line: 10, letter: 20 }} />
+        </>
+        <>
+          <RangeSlider
+            // id={nanoid()}
+            label="Opacity"
+            value={opacity}
+            onChange={(value) => setOpacity(value)}
+          />
+        </>
+        <>
+          <TextStroke
+            onChange={() => {}}
+            value={{ color: '#00000', size: 0 }}
+          />
+        </>
+        <>
+          <TextShadow
+            value={{ size: 0, color: '#14b8a6' }}
+            onChange={() => {}}
+          />
+        </>
+        <>
+          <CurvedText value={0} onChange={() => {}} />
+        </>
       </div>
-      {/* <div className="p-4 text-gray-200">
-        <p className="tracking-wid mb-2 ml-2 mt-4">Fill</p>
-        <div className=" rounded-md border border-slate-600 p-2">
-          <div className="flex items-center justify-between p-1">
-            <p>Color</p>
-            <input
-              type="color"
-              value={textColor}
-              onChange={(e) => {
-                setTextColor(e.target.value)
-              }}
-              className="appearance-none"
-            />
-          </div>
-          <div className="mt-2 flex items-center justify-between p-1">
-            <p>Opacity</p>
-            <input
-              type="range"
-              value={opacity}
-              onChange={(e) => {
-                setOpacity(Number(e.target.value))
-              }}
-            />
-          </div>
-        </div>
-      </div> */}
     </>
   )
 }

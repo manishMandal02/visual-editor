@@ -73,7 +73,14 @@ interface TextStyle {
 
 type TextAlign = 'left' | 'center' | 'right'
 type TextAlignVertical = 'top' | 'middle' | 'bottom'
-
+type TextStroke = {
+  size: number
+  color: string
+}
+type TextSpacing = {
+  letter: number
+  line: number
+}
 // element - image
 type Image = {
   id: string
@@ -91,6 +98,8 @@ export type {
   Shape,
   Text,
   TextStyle,
+  TextSpacing,
+  TextStroke,
   TextAlign,
   TextAlignVertical,
   Element,
