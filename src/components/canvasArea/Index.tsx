@@ -36,6 +36,7 @@ const CanvasArea: React.FC<Props> = ({ boardSetting }) => {
   useEffect(() => {
     if (isExportToImage) {
       setExportToImage(false)
+      setSelectedElNull()
       handleExportToImage()
     }
   }, [isExportToImage])
