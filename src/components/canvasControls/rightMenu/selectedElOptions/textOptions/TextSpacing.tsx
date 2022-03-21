@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid'
 import React from 'react'
 import { TextSpacing as TextSpacingType } from '../../../../../types/canvas.type'
 import Accordion from '../../../../ui/Accordion'
@@ -15,17 +14,23 @@ const TextSpacing: React.FC<Props> = ({ spacing, onChange }) => {
     <div className=" px-2">
       <Accordion label="Spacing">
         <RangeSlider
-          id={nanoid()}
           label="Letter Spacing"
           value={letter}
+          min={0}
+          max={20}
+          isValueNumber
+          step={0.5}
           onChange={(value) => {
             onChange({ letter: value, line })
           }}
         />
         <RangeSlider
-          id={nanoid()}
           label="Line Spacing"
           value={line}
+          min={0.1}
+          max={5}
+          isValueNumber
+          step={0.1}
           onChange={(value) => {
             onChange({ line: value, letter })
           }}

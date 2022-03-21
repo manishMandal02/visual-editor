@@ -17,7 +17,7 @@ interface ProjectBoardSlice {
 export const createProjectSlice: StoreSlice<ProjectBoardSlice> = (set) => ({
   setting: {
     name: 'untitled',
-    size: { height: 360, width: 360 },
+    size: { height: 540, width: 540 },
     pixelRatio: 3,
   },
   isExportToImage: false,

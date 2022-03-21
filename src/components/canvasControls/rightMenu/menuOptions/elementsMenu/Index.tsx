@@ -5,6 +5,7 @@ import { MdChevronLeft, MdChevronRight } from 'react-icons/md'
 import ElementsSearchTags from '../../../../ui/ElementsSearchTags'
 import ElementsMiniMenu from '../../../../ui/ElementsMiniMenu'
 import { nanoid } from 'nanoid'
+import Shapes from './Shapes'
 
 const shapesFileRef = [
   '/elements/shapes/circle-outlined.svg',
@@ -78,7 +79,9 @@ const ElementsMenu = () => {
           </>
         </>
       ) : (
-        <p className="text-white">Submenu</p>
+        <div className="py-3">
+          <Shapes />
+        </div>
       )}
     </>
   )

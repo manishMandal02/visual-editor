@@ -21,8 +21,12 @@ const TextStroke: React.FC<Props> = ({ value, onChange }) => {
         }}
       >
         <RangeSlider
-          label="Curved Amount"
+          label="Width"
           value={size}
+          min={0}
+          max={10}
+          step={0.1}
+          isValueNumber
           onChange={(value) => onChange({ size: value, color, isApplied })}
         />
         <div className="flex select-none items-center justify-between px-4 py-1">

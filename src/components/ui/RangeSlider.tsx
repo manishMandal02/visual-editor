@@ -4,10 +4,23 @@ interface Props {
   id?: string
   label: string
   value: number
+  min?: number
+  max?: number
+  step?: number
+  isValueNumber?: boolean
   onChange: (value: number) => void
 }
 
-const RangeSlider: React.FC<Props> = ({ value, label, onChange, id }) => {
+const RangeSlider: React.FC<Props> = ({
+  value,
+  label,
+  onChange,
+  id,
+  min,
+  max,
+  step,
+  isValueNumber,
+}) => {
   return (
     <div key={id}>
       <div className="mt-2 flex w-full flex-col  items-start justify-center p-1 px-2">
@@ -17,11 +30,14 @@ const RangeSlider: React.FC<Props> = ({ value, label, onChange, id }) => {
         <div className="flex w-full items-center rounded   py-2 px-2 shadow-sm shadow-slate-700">
           <input
             type="range"
-            min={0}
-            max={100}
+            min={min || 0}
+            max={max || 100}
             value={value}
+            step={step}
             style={{
-              backgroundImage: `linear-gradient(90deg, #14b8a6 ${value}%, transparent ${value}%)`,
+              backgroundImage: `linear-gradient(90deg, #14b8a6 ${
+                (value / (max || 100)) * 100
+              }%, transparent ${value}%)`,
             }}
             onChange={(e) => {
               onChange(Number(e.target.value))
@@ -37,9 +53,13 @@ const RangeSlider: React.FC<Props> = ({ value, label, onChange, id }) => {
               onChange={(e) => {
                 onChange(Number(e.target.value))
               }}
-              className="hideArrowCC w-10  rounded bg-slate-100 py-px px-px pl-1 text-left text-sm text-black outline-none"
+              className={` ${
+                isValueNumber ? 'showArrowCC' : 'hideArrowCC'
+              } w-10  rounded bg-slate-100 py-px px-px pl-1 text-left text-sm text-black outline-none`}
             />
-            <span className="absolute right-1 select-none text-xs">%</span>
+            {!isValueNumber && (
+              <span className="absolute right-1 select-none text-xs">%</span>
+            )}
           </div>
         </div>
       </div>
