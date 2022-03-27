@@ -13,7 +13,7 @@ const Header = () => {
       <div>
         <button
           onClick={() => setExportToImage(true)}
-          className="rounded-3xl bg-primary py-2 px-5 text-sm font-medium tracking-wide transition-all duration-200 hover:bg-sky-400"
+          className="rounded-3xl bg-primary py-2 px-5 text-sm font-semibold tracking-wide text-slate-900 transition-all duration-300 hover:bg-emerald-300"
         >
           Export
         </button>

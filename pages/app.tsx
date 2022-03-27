@@ -18,7 +18,7 @@ const App = () => {
   const projectSetting = useAppStore((state) => state.setting)
 
   return (
-    <div className="h-screen  bg-primary-dark2">
+    <div className="svgBG  h-screen bg-primary-dark2">
       <div className="flex  h-1/12  items-center justify-center border-b-2 border-primary bg-primary-dark text-gray-100">
         <Header />
       </div>
